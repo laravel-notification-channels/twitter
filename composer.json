@@ -16,7 +16,7 @@
         "illuminate/notifications": "^5.3@dev",
         "illuminate/support": "^5.3@dev",
         "illuminate/events": "^5.3@dev",
-        "abraham/twitteroauth": "^0.6.*"
+        "abraham/twitteroauth": "^0.6.4"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.5",
