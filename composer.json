@@ -1,0 +1,43 @@
+{
+    "name": "laravel-notification-channels/twitter",
+    "description": "This package makes it easy to send notifications via Twitter status updates with Laravel 5.3",
+    "homepage": "https://github.com/laravel-notification-channels/twitter",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christoph Rumpel",
+            "email": "c.rumpel@kabsi.at",
+            "homepage": "http://christoph-rumpel.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "illuminate/notifications": "^5.3@dev",
+        "illuminate/support": "^5.3@dev",
+        "illuminate/events": "^5.3@dev",
+        "abraham/twitteroauth": "^0.6.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.5",
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "NotificationChannels\\Twitter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NotificationChannels\\Twitter\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+
+    "minimum-stability": "dev"
+}
