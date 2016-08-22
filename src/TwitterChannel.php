@@ -8,13 +8,11 @@ use NotificationChannels\Twitter\Exceptions\InvalidConfiguration;
 
 class TwitterChannel
 {
-
     /** @var Client */
     protected $client;
-    /**
-     * @var Twitter
-     */
-    private $twitter;
+
+    /** @var Twitter */
+    protected $twitter;
 
     /**
      * @param Client $client
@@ -31,6 +29,7 @@ class TwitterChannel
      *
      * @param mixed $notifiable
      * @param \Illuminate\Notifications\Notification $notification
+     *
      * @throws CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)

@@ -5,12 +5,20 @@ namespace NotificationChannels\Twitter;
 class TwitterMessage
 {
 
-    /** @var string @var string */
+    /**  @var string */
     protected $content;
 
     /**
-     * Message constructor.
+     * @param string $content
      *
+     * @return static
+     */
+    public static function create($content = '')
+    {
+        return new static($content);
+    }
+
+    /*
      * @param string $content
      */
     public function __construct($content = '')
@@ -20,9 +28,11 @@ class TwitterMessage
 
     /**
      * Get Twitter message content
+     *
      * @return string
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->content;
     }
 
