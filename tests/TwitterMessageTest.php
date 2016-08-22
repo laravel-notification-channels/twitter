@@ -24,4 +24,13 @@ class TwitterMessageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('myMessage', $message->getContent());
     }
+
+    /** @test */
+    public function it_accepts_a_message_to_user_when_constructing_a_user_with_message()
+    {
+        $message = new TwitterMessage('twitterUser', 'myMessage');
+
+        $this->assertEquals('myMessage', $message->getContent());
+        $this->assertEquals('twitterUser', $message->getReceiver());
+    }
 }

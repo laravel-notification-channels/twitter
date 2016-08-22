@@ -35,9 +35,15 @@ class TwitterChannel
     public function send($notifiable, Notification $notification)
     {
         $twitterMessage = $notification->toTwitter($notifiable);
-
-        $response = $this->twitter->connection->post(
-            'statuses/update', ['status' => $twitterMessage->getContent()]);
+        if ($twitterMessage->getReceiver() != null) {
+            $response = $this->twitter->connection->post('direct_messages/new', [
+                    'text' => $twitterMessage->getContent(),
+                    'screen_name' => $twitterMessage->getReceiver(),
+                ]);
+        } else {
+            $response = $this->twitter->connection->post(
+                'statuses/update', ['status' => $twitterMessage->getContent()]);
+        }
 
         if (isset($response->errors)) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
