@@ -4,8 +4,7 @@ namespace NotificationChannels\Twitter;
 
 class TwitterMessage
 {
-
-    /**  @var string */
+    /** @var string */
     protected $content;
 
     /**
@@ -27,7 +26,7 @@ class TwitterMessage
     }
 
     /**
-     * Get Twitter message content
+     * Get Twitter message content.
      *
      * @return string
      */
@@ -35,5 +34,4 @@ class TwitterMessage
     {
         return $this->content;
     }
-
 }

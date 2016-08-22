@@ -1,10 +1,10 @@
 <?php
+
 namespace NotificationChannels\Twitter;
 
 use GuzzleHttp\Client;
-use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Twitter\Exceptions\InvalidConfiguration;
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel
 {
@@ -15,7 +15,7 @@ class TwitterChannel
     protected $twitter;
 
     /**
-     * @param Client $client
+     * @param Client  $client
      * @param Twitter $twitter
      */
     public function __construct(Client $client, Twitter $twitter)
@@ -27,7 +27,7 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param mixed $notifiable
+     * @param mixed                                  $notifiable
      * @param \Illuminate\Notifications\Notification $notification
      *
      * @throws CouldNotSendNotification
@@ -37,13 +37,10 @@ class TwitterChannel
         $twitterMessage = $notification->toTwitter($notifiable);
 
         $response = $this->twitter->connection->post(
-            "statuses/update", ["status" => $twitterMessage->getContent()]);
+            'statuses/update', ['status' => $twitterMessage->getContent()]);
 
         if (isset($response->errors)) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
         }
-
     }
-
 }
-
