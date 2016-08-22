@@ -24,5 +24,4 @@ class TwitterMessageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('myMessage', $message->getContent());
     }
-
 }

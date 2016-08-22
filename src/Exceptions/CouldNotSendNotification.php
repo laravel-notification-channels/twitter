@@ -8,5 +8,4 @@ class CouldNotSendNotification extends \Exception
     {
         return new static("Couldn't post Twitter status. Error: {$response->errors[0]->code} Message: {$response->errors[0]->message}");
     }
-
 }
