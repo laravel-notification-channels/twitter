@@ -2,7 +2,6 @@
 
 namespace NotificationChannels\Twitter;
 
-
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 class Twitter
