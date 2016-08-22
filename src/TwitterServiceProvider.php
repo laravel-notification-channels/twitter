@@ -4,7 +4,6 @@ namespace NotificationChannels\Twitter;
 
 use Illuminate\Support\ServiceProvider;
 
-
 class TwitterServiceProvider extends ServiceProvider
 {
     /**
