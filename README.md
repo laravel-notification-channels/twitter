@@ -65,7 +65,9 @@ This will load the Twitter app data from the `.env` file. Make sure to use the s
 
 ## Usage
 
-Follow Laravel's documentation to add the channel to your Notification class:
+Follow Laravel's documentation to add the channel to your Notification class.
+
+### Publish Twitter status update
 
 ```php
 use NotificationChannels\Twitter\TwitterChannel;
@@ -97,6 +99,7 @@ public function toTwitter($notifiable) {
     return new TwitterMessage('Why Laravel Notification Channels are awesome -> url:...');
 }
 ```` 
+### Send a direct message
 But it is possible to send a Twitter direct message too. Just provide a second argument. The first one will be the user, the second one the message:
 ````php
 public function toTwitter($notifiable) {
