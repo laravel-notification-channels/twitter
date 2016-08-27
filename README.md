@@ -97,7 +97,7 @@ public function toTwitter($notifiable) {
     return new TwitterMessage('Why Laravel Notification Channels are awesome -> url:...');
 }
 ```` 
-But you can send a Twitter direct message, when you provide a second argument. The first one will be the user, the second one the message:
+But it is possible to send a Twitter direct message too. Just provide a second argument. The first one will be the user, the second one the message:
 ````php
 public function toTwitter($notifiable) {
     return new TwitterMessage('christophrumpel', 'Hey Christoph, whats up?');
