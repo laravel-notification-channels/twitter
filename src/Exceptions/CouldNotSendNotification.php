@@ -6,6 +6,6 @@ class CouldNotSendNotification extends \Exception
 {
     public static function serviceRespondedWithAnError($response)
     {
-        return new static("Couldn't post Twitter status. Error: {$response->errors[0]->code} Message: {$response->errors[0]->message}");
+        return new static("Couldn't post notification. Error: {$response->errors[0]->code} Message: {$response->errors[0]->message}");
     }
 }

@@ -9,7 +9,7 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/twitter/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/twitter/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/twitter.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/twitter)
 
-This package makes it easy to send notifications using [Twitter Status Updates](https://dev.twitter.com/rest/reference/post/statuses/update) with Laravel 5.3.
+This package makes it easy to send notifications using [Twitter](https://dev.twitter.com/rest/public) with Laravel 5.3.
 
 ## Contents
 
@@ -90,6 +90,22 @@ class  NewForumDiscussionCreated extends Notification
     }
 }
 ```
+
+Take a closer look at the `TwitterMessage` object. Like this, it will send a status update to your Twitter timeline.
+````php
+public function toTwitter($notifiable) {
+    return new TwitterMessage('Why Laravel Notification Channels are awesome -> url:...');
+}
+```` 
+But you can send a Twitter direct message, when you provide a second argument. The first one will be the user, the second one the message:
+````php
+public function toTwitter($notifiable) {
+    return new TwitterMessage('christophrumpel', 'Hey Christoph, whats up?');
+}
+```` 
+Make sure the user is following you on Twitter. If this is not the case, it will throw an Exception.
+
+
 
 ## Changelog
 
