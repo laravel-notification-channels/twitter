@@ -1,6 +1,6 @@
 {
     "name": "laravel-notification-channels/twitter",
-    "description": "This package makes it easy to send notifications via Twitter status updates with Laravel 5.3",
+    "description": "This package makes it easy to send notifications via Twitter with Laravel 5.3",
     "homepage": "https://github.com/laravel-notification-channels/twitter",
     "license": "MIT",
     "authors": [
