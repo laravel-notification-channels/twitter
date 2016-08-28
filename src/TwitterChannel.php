@@ -8,7 +8,6 @@ use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel
 {
-
     /** @var TwitterOAuth */
     protected $twitter;
 
@@ -32,12 +31,12 @@ class TwitterChannel
     {
         $twitterMessage = $notification->toTwitter($notifiable);
         if ($twitterMessage->getReceiver() != null) {
-            $response = $this->twitter->connection->post('direct_messages/new', [
+            $response = $this->twitter->post('direct_messages/new', [
                     'text' => $twitterMessage->getContent(),
                     'screen_name' => $twitterMessage->getReceiver(),
                 ]);
         } else {
-            $response = $this->twitter->connection->post(
+            $response = $this->twitter->post(
                 'statuses/update', ['status' => $twitterMessage->getContent()]);
         }
 

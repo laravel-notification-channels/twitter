@@ -62,13 +62,13 @@ class ChannelTest extends TestCase
 
         $this->channel->send(new TestNotifiable(), new TestNotification());
     }
-
 }
 
 
 class TestNotifiable
 {
     use \Illuminate\Notifications\Notifiable;
+
     /**
      * @return int
      */
