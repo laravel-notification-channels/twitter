@@ -2,25 +2,20 @@
 
 namespace NotificationChannels\Twitter;
 
-use GuzzleHttp\Client;
+use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel
 {
-    /** @var Client */
-    protected $client;
-
-    /** @var Twitter */
+    /** @var TwitterOAuth */
     protected $twitter;
 
     /**
-     * @param Client  $client
-     * @param Twitter $twitter
+     * @param TwitterOAuth $twitter
      */
-    public function __construct(Client $client, Twitter $twitter)
+    public function __construct(TwitterOAuth $twitter)
     {
-        $this->client = $client;
         $this->twitter = $twitter;
     }
 
@@ -36,16 +31,16 @@ class TwitterChannel
     {
         $twitterMessage = $notification->toTwitter($notifiable);
         if ($twitterMessage->getReceiver() != null) {
-            $response = $this->twitter->connection->post('direct_messages/new', [
+            $response = $this->twitter->post('direct_messages/new', [
                     'text' => $twitterMessage->getContent(),
                     'screen_name' => $twitterMessage->getReceiver(),
                 ]);
         } else {
-            $response = $this->twitter->connection->post(
+            $response = $this->twitter->post(
                 'statuses/update', ['status' => $twitterMessage->getContent()]);
         }
 
-        if (isset($response->errors)) {
+        if ($response->getHttpCode() !== 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
         }
     }

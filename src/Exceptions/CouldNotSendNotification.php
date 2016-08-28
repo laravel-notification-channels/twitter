@@ -6,6 +6,8 @@ class CouldNotSendNotification extends \Exception
 {
     public static function serviceRespondedWithAnError($response)
     {
-        return new static("Couldn't post notification. Error: {$response->errors[0]->code} Message: {$response->errors[0]->message}");
+        $responseBody = print_r($response->getBody(), true);
+
+        return new static("Couldn't post Notification. Response: ".$responseBody);
     }
 }
