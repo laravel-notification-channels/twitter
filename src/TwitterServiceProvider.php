@@ -2,6 +2,7 @@
 
 namespace NotificationChannels\Twitter;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Support\ServiceProvider;
 
 class TwitterServiceProvider extends ServiceProvider
@@ -13,9 +14,14 @@ class TwitterServiceProvider extends ServiceProvider
     {
         // Bootstrap code here.
         $this->app->when(TwitterChannel::class)
-            ->needs(Twitter::class)
+            ->needs(TwitterOAuth::class)
             ->give(function () {
-                return new Twitter(config('services.twitter'));
+                return new TwitterOAuth(
+                    config('services.twitter.consumer_key'),
+                    config('services.twitter.consumer_secret'),
+                    config('services.twitter.access_token'),
+                    config('services.twitter.access_secret')
+                );
             });
     }
 }
