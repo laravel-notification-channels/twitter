@@ -2,12 +2,10 @@
 
 namespace NotificationChannels\TWitter\Test;
 
-use NotificationChannels\Twitter\TwitterMessage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
 class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var TwitterStatusUpdate */
     protected $message;
 
@@ -45,7 +43,7 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($message->getRequestBody(), [
             'status'    => 'myMessage',
-            'media_ids' => '434,435,436'
+            'media_ids' => '434,435,436',
         ]);
     }
 }

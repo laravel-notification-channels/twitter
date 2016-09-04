@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\Twitter;
-use NotificationChannels\Twitter\TwitterMessage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 use Orchestra\Testbench\TestCase;
 
@@ -51,7 +50,7 @@ class ChannelTest extends TestCase
     /** @test */
     public function it_can_send_a_status_update_notification_with_images()
     {
-//        $response = new Response();
+        //        $response = new Response();
 //        $response->setHttpCode(200);
 //
 //        $this->twitter->shouldReceive('setTimeouts')
