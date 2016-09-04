@@ -1,5 +1,4 @@
 <?php
-
 namespace NotificationChannels\Twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -30,15 +29,17 @@ class TwitterChannel
     public function send($notifiable, Notification $notification)
     {
         $twitterMessage = $notification->toTwitter($notifiable);
-        if ($twitterMessage->getReceiver() != null) {
-            $response = $this->twitter->post('direct_messages/new', [
-                    'text' => $twitterMessage->getContent(),
-                    'screen_name' => $twitterMessage->getReceiver(),
-                ]);
-        } else {
-            $response = $this->twitter->post(
-                'statuses/update', ['status' => $twitterMessage->getContent()]);
+        if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getImagePaths()) {
+            $this->twitter->setTimeouts(10, 15);
+
+            $twitterMessage->imageIds = $twitterMessage->getImagePaths()->map(function ($path) {
+                $media = $this->twitter->upload('media/upload', ['media' => $path]);
+
+                return $media->media_id_string;
+            });
         }
+
+        $response = $this->twitter->post($twitterMessage->getApiEndpoint(), $twitterMessage->getRequestBody());
 
         if ($response->getHttpCode() !== 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
