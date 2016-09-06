@@ -36,7 +36,7 @@ class ChannelTest extends TestCase
     /** @test */
     public function it_can_send_a_status_update_notification()
     {
-//        $response = new Response();
+        //        $response = new Response();
 //        $response->setHttpCode(200);
 //
 //        $this->twitter->shouldReceive('post')
@@ -70,7 +70,7 @@ class ChannelTest extends TestCase
     /** @test */
     public function it_throws_an_exception_when_it_could_not_send_the_notification()
     {
-//        $response = new Response();
+        //        $response = new Response();
 //        $response->setHttpCode(500);
 //
 //        $this->twitter->shouldReceive('post')
