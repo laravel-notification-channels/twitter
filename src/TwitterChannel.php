@@ -39,10 +39,10 @@ class TwitterChannel
             });
         }
 
-        $response = $this->twitter->post($twitterMessage->getApiEndpoint(), $twitterMessage->getRequestBody());
+        $this->twitter->post($twitterMessage->getApiEndpoint(), $twitterMessage->getRequestBody());
 
-        if ($response->getHttpCode() !== 200) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+        if ($this->twitter->getLastHttpCode() !== 200) {
+            throw CouldNotSendNotification::serviceRespondedWithAnError($this->twitter->getLastBody());
         }
     }
 }
