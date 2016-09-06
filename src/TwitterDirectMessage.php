@@ -1,10 +1,10 @@
 <?php
+
 namespace NotificationChannels\Twitter;
 
 class TwitterDirectMessage
 {
-
-    /** @var  string */
+    /** @var string */
     private $content;
 
     /**
@@ -16,7 +16,6 @@ class TwitterDirectMessage
      * @var  string
      */
     private $apiEndpoint = 'direct_messages/new';
-
 
     /*
      * @param  string $content
@@ -48,15 +47,16 @@ class TwitterDirectMessage
     }
 
     /**
-     * Return Twitter direct message api endpoint
+     * Return Twitter direct message api endpoint.
      * @return  string
      */
-    public function getApiEndpoint() {
+    public function getApiEndpoint()
+    {
         return $this->apiEndpoint;
     }
 
     /**
-     * Build Twitter request body
+     * Build Twitter request body.
      * @return  array
      */
     public function getRequestBody()

@@ -1,4 +1,5 @@
 <?php
+
 namespace NotificationChannels\Twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;

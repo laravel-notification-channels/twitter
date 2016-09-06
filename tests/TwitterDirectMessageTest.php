@@ -3,7 +3,6 @@
 namespace NotificationChannels\TWitter\Test;
 
 use NotificationChannels\Twitter\TwitterDirectMessage;
-use NotificationChannels\Twitter\TwitterMessage;
 
 class TwitterDirectMessageTest extends \PHPUnit_Framework_TestCase
 {

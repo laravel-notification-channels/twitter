@@ -4,8 +4,7 @@ namespace NotificationChannels\Twitter;
 
 class TwitterStatusUpdate
 {
-
-    /** @var  string */
+    /** @var string */
     protected $content;
 
     /**
@@ -53,15 +52,16 @@ class TwitterStatusUpdate
     }
 
     /**
-     * Return Twitter status update api endpoint
+     * Return Twitter status update api endpoint.
      * @return  string
      */
-    public function getApiEndpoint() {
+    public function getApiEndpoint()
+    {
         return $this->apiEndpoint;
     }
 
     /**
-     * Build Twitter request body
+     * Build Twitter request body.
      * @return  array
      */
     public function getRequestBody()
