@@ -51,7 +51,7 @@ class ChannelTest extends TestCase
     public function it_can_send_a_status_update_notification_with_images()
     {
         $media = new stdClass;
-        $media->media_id_string = "2";
+        $media->media_id_string = '2';
 
         $this->twitter->shouldReceive('setTimeouts')
             ->once()
