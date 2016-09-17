@@ -2,15 +2,15 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Abraham\TwitterOAuth\Response;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Mockery;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\Twitter;
-use NotificationChannels\Twitter\TwitterMessage;
+use NotificationChannels\Twitter\TwitterStatusUpdate;
 use Orchestra\Testbench\TestCase;
+use stdClass;
 
 class ChannelTest extends TestCase
 {
@@ -34,29 +34,65 @@ class ChannelTest extends TestCase
     }
 
     /** @test */
-    public function it_can_send_a_notification()
+    public function it_can_send_a_status_update_notification()
     {
-        $response = new Response();
-        $response->setHttpCode(200);
-
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Why Laravel Notification Channels are awesome -> url:...'])
-            ->andReturn($response);
+            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!']);
+
+        $this->twitter->shouldReceive('getLastHttpCode')
+            ->once()
+            ->andReturn(200);
 
         $this->channel->send(new TestNotifiable(), new TestNotification());
     }
 
     /** @test */
-    public function it_throws_an_exception_when_it_could_not_send_the_notification()
+    public function it_can_send_a_status_update_notification_with_images()
     {
-        $response = new Response();
-        $response->setHttpCode(500);
+        $media = new stdClass;
+        $media->media_id_string = '2';
+
+        $this->twitter->shouldReceive('setTimeouts')
+            ->once()
+            ->with(10, 15);
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Why Laravel Notification Channels are awesome -> url:...'])
-            ->andReturn($response);
+            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2']);
+
+        $this->twitter->shouldReceive('upload')
+            ->once()
+            ->with('media/upload', ['media' => public_path('image.png')])
+            ->andReturn($media);
+
+        $this->twitter->shouldReceive('getLastHttpCode')
+            ->once()
+            ->andReturn(200);
+
+        $this->channel->send(new TestNotifiable(), new TestNotificationWithImage());
+    }
+
+    /** @test */
+    public function it_throws_an_exception_when_it_could_not_send_the_notification()
+    {
+        $messageObject = new stdClass;
+        $messageObject->message = 'Error message';
+        $twitterResponse = new stdClass;
+        $twitterResponse->errors[] = $messageObject;
+
+
+        $this->twitter->shouldReceive('post')
+            ->once()
+            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!']);
+
+        $this->twitter->shouldReceive('getLastHttpCode')
+        ->once()
+        ->andReturn(500);
+
+        $this->twitter->shouldReceive('getLastBody')
+            ->once()
+            ->andReturn($twitterResponse);
 
         $this->setExpectedException(CouldNotSendNotification::class);
 
@@ -81,6 +117,14 @@ class TestNotification extends Notification
 {
     public function toTwitter($notifiable)
     {
-        return new TwitterMessage('Why Laravel Notification Channels are awesome -> url:...');
+        return new TwitterStatusUpdate('Laravel Notification Channels are awesome!');
+    }
+}
+
+class TestNotificationWithImage extends Notification
+{
+    public function toTwitter($notifiable)
+    {
+        return new TwitterStatusUpdate('Laravel Notification Channels are awesome!', [public_path('image.png')]);
     }
 }
