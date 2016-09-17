@@ -75,7 +75,7 @@ Follow Laravel's documentation to add the channel to your Notification class.
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterMessage;
 
-class  NewsWasPublished extends Notification
+class NewsWasPublished extends Notification
 {
 
     /**
