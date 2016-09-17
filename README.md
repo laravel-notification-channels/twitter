@@ -103,7 +103,7 @@ public function toTwitter($notifiable) {
 ````
 ### Publish Twitter status update with images
 It is possible to publish images with your status update too. You just have to pass the image paths as the second 
-parameter. These images images will then be shown next to your Twitter status message.
+parameter. These images will then be shown next to your Twitter status message.
 ````php
 public function toTwitter($notifiable) {
     return new TwitterStatusUpdate(
@@ -117,8 +117,7 @@ To send a Twitter direct message to a specific user, you will need the `TwitterD
 user handler as the first parameter and the the message as the second one.
 ````php
 public function toTwitter($notifiable) {
-     return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Larcon. Greets 
-     Christoph');
+     return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Larcon.');
 }
 ```` 
 Make sure the user is following you on Twitter to make this work.
