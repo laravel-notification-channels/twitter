@@ -8,6 +8,6 @@ class CouldNotSendNotification extends \Exception
     {
         $responseBody = print_r($response->errors[0]->message, true);
 
-        return new static("Couldn't post Notification. Response: " . $responseBody);
+        return new static("Couldn't post Notification. Response: ".$responseBody);
     }
 }

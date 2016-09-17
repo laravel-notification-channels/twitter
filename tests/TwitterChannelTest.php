@@ -2,7 +2,6 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Abraham\TwitterOAuth\Response;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Mockery;
 use Illuminate\Notifications\Notification;
@@ -71,7 +70,7 @@ class ChannelTest extends TestCase
             ->once()
             ->andReturn(200);
 
-        $this->channel->send(new TestNotifiable(), new TestNotification2());
+        $this->channel->send(new TestNotifiable(), new TestNotificationWithImage());
     }
 
     /** @test */
@@ -122,7 +121,7 @@ class TestNotification extends Notification
     }
 }
 
-class TestNotification2 extends Notification
+class TestNotificationWithImage extends Notification
 {
     public function toTwitter($notifiable)
     {
