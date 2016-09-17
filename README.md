@@ -14,10 +14,10 @@ This package makes it easy to send notifications using [Twitter](https://dev.twi
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the Twitter service](#setting-up-the-Twitter-service)
+- [Setting up the Twitter service](#setting-up-the-twitter-service)
 - [Usage](#usage)
 	- [Publish Twitter status update](#publish-twitter-status-update)
-	- [Publish Twitter status update with images](#publish-twitter-status-spdate-with-images)
+	- [Publish Twitter status update with images](#publish-twitter-status-update-with-images)
  - [Send a direct message](#send-a-direct-message)
 - [Changelog](#changelog)
 - [Testing](#testing)
