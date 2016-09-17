@@ -88,25 +88,38 @@ class  NewForumDiscussionCreated extends Notification
     }
 
     public function toTwitter($notifiable) {
-        return new TwitterMessage('Why Laravel Notification Channels are awesome -> url:...');
+        return new TwitterStatusUpdate('Laravel notifications are awesome!');
     }
 }
 ```
 
-Take a closer look at the `TwitterMessage` object. Like this, it will send a status update to your Twitter timeline.
+Take a closer look at the `TwitterStatusUpdate` object. This is where the magic happens.
 ````php
 public function toTwitter($notifiable) {
-    return new TwitterMessage('Why Laravel Notification Channels are awesome -> url:...');
+    return new TwitterStatusUpdate('Laravel notifications are awesome!');
 }
-```` 
+````
+### Publish Twitter status update with images
+It is possible to publish images with your status update too. You just have to pass the image paths as the second 
+parameter. These images images will then be shown next to your Twitter status message.
+````php
+public function toTwitter($notifiable) {
+    return new TwitterStatusUpdate(
+        'Laravel notifications are awesome!',
+        [public_path('marcel.png'), public_path('mohamed.png'), public_path('freek.png')]
+    );
+}
+````
 ### Send a direct message
-But it is possible to send a Twitter direct message too. Just provide a second argument. The first one will be the user, the second one the message:
+To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter 
+user handler as the first parameter and the the message as the second one.
 ````php
 public function toTwitter($notifiable) {
-    return new TwitterMessage('christophrumpel', 'Hey Christoph, whats up?');
+     return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Larcon. Greets 
+     Christoph');
 }
 ```` 
-Make sure the user is following you on Twitter. If this is not the case, it will throw an Exception.
+Make sure the user is following you on Twitter to make this work.
 
 
 

@@ -2,6 +2,10 @@
 
 All notable changes to the `Twitter notification channel` will be documented in this file
 
+## 0.0.5 - 2016-09-17
+
+- refactor the code to provide separate classes for Twitter status updates and direct messages
+
 
 ## 0.0.4 - 2016-08-27
 
