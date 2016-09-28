@@ -25,7 +25,7 @@ class TwitterStatusUpdate
     /*
      * @param  string $content
      */
-    public function __construct(string $content, array $imagePaths = null)
+    public function __construct($content, array $imagePaths = null)
     {
         $this->content = $content;
         $this->imagePaths = $imagePaths ? collect($imagePaths) : null;

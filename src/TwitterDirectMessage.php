@@ -20,7 +20,7 @@ class TwitterDirectMessage
     /*
      * @param  string $content
      */
-    public function __construct(string $to, string $content)
+    public function __construct($to, string $content)
     {
         $this->to = $to;
         $this->content = $content;
