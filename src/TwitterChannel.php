@@ -8,6 +8,7 @@ use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel
 {
+
     /** @var TwitterOAuth */
     protected $twitter;
 
@@ -22,13 +23,17 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param mixed                                  $notifiable
+     * @param mixed $notifiable
      * @param \Illuminate\Notifications\Notification $notification
      *
      * @throws CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
     {
+        if ($twitterSettings = $notifiable->routeNotificationFor('twitter')) {
+            $this->switchSettings($twitterSettings);
+        }
+
         $twitterMessage = $notification->toTwitter($notifiable);
         if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getImagePaths()) {
             $this->twitter->setTimeouts(10, 15);
@@ -46,4 +51,15 @@ class TwitterChannel
             throw CouldNotSendNotification::serviceRespondedWithAnError($this->twitter->getLastBody());
         }
     }
+
+    /**
+     * Use per user settings instead of default ones
+     * @param $twitterSettings
+     */
+    private function switchSettings($twitterSettings)
+    {
+        $this->twitter = new TwitterOAuth($twitterSettings[0], $twitterSettings[1], $twitterSettings[2],
+            $twitterSettings[3]);
+    }
+
 }
