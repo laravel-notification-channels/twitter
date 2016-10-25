@@ -24,4 +24,11 @@ class TwitterServiceProvider extends ServiceProvider
                 );
             });
     }
+
+    /**
+     * Register any package services.
+     */
+    public function register()
+    {
+    }
 }
