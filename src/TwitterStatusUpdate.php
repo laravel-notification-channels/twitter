@@ -2,6 +2,8 @@
 
 namespace NotificationChannels\Twitter;
 
+use NotificationChannels\Twitter\TwitterImage;
+
 class TwitterStatusUpdate
 {
     /** @var string */
@@ -10,7 +12,7 @@ class TwitterStatusUpdate
     /**
      * @var  array
      */
-    private $imagePaths;
+    private $images;
 
     /**
      * @var  array
@@ -25,10 +27,21 @@ class TwitterStatusUpdate
     /*
      * @param  string $content
      */
-    public function __construct($content, array $imagePaths = null)
+    public function __construct($content)
     {
         $this->content = $content;
-        $this->imagePaths = $imagePaths ? collect($imagePaths) : null;
+    }
+
+    /**
+     * Set Twitter media files.
+     *
+     * @return  $this
+     */
+    public function withImage($images){
+        collect($images)->each(function($image){
+            $this->images[] = new TwitterImage($image);
+        });
+        return $this;
     }
 
     /**
@@ -42,13 +55,13 @@ class TwitterStatusUpdate
     }
 
     /**
-     * Get Twitter status update image paths.
+     * Get Twitter images list.
      *
      * @return  string
      */
-    public function getImagePaths()
+    public function getImages()
     {
-        return $this->imagePaths;
+        return $this->images;
     }
 
     /**
