@@ -27,6 +27,15 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_accepts_one_image_path()
+    {
+        $message = (new TwitterStatusUpdate('myMessage'))->withImage('image1.png');
+
+        $this->assertEquals('myMessage', $message->getContent());
+        $this->assertEquals([ new TwitterImage('image1.png') ], $message->getImages());
+    }
+
+    /** @test */
     public function it_accepts_array_of_image_paths()
     {
         $imagePaths = ['path1', 'path2'];
