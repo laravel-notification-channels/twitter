@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\TWitter\Test;
+namespace NotificationChannels\Twitter\Test;
 
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
