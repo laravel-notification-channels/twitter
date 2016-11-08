@@ -35,6 +35,7 @@ class TwitterStatusUpdate
     /**
      * Set Twitter media files.
      *
+     * @param   array|string $images
      * @return  $this
      */
     public function withImage($images){
