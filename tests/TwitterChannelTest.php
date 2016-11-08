@@ -3,11 +3,12 @@
 namespace NotificationChannels\Twitter\Test;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Mockery;
 use Illuminate\Notifications\Notification;
+use Mockery;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
-use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\Twitter;
+use NotificationChannels\Twitter\TwitterChannel;
+use NotificationChannels\Twitter\TwitterImage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 use Orchestra\Testbench\TestCase;
 use stdClass;
@@ -116,6 +117,6 @@ class TestNotificationWithImage extends Notification
 
     public function toTwitter($notifiable)
     {
-        return new TwitterStatusUpdate('Laravel Notification Channels are awesome!', [public_path('image.png')]);
+        return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))->withImage(public_path('image.png'));
     }
 }

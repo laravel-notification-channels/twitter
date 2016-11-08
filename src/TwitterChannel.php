@@ -35,11 +35,11 @@ class TwitterChannel
         }
 
         $twitterMessage = $notification->toTwitter($notifiable);
-        if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getImagePaths()) {
+        if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getImages()) {
             $this->twitter->setTimeouts(10, 15);
 
-            $twitterMessage->imageIds = $twitterMessage->getImagePaths()->map(function ($path) {
-                $media = $this->twitter->upload('media/upload', ['media' => $path]);
+            $twitterMessage->imageIds = collect($twitterMessage->getImages())->map(function ($image) {
+                $media = $this->twitter->upload('media/upload', ['media' => $image->getPath()]);
 
                 return $media->media_id_string;
             });
