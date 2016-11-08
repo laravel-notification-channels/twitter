@@ -2,6 +2,10 @@
 
 All notable changes to the `Twitter notification channel` will be documented in this file
 
+## 0.0.11 - 2016-11-08
+
+- refactor Twitter status updates image handling
+
 ## 0.0.5 - 2016-09-17
 
 - refactor the code to provide separate classes for Twitter status updates and direct messages

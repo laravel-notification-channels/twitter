@@ -102,15 +102,19 @@ public function toTwitter($notifiable) {
 }
 ````
 ### Publish Twitter status update with images
-It is possible to publish images with your status update too. You just have to pass the image paths as the second 
-parameter. These images will then be shown next to your Twitter status message.
+It is possible to publish images with your status update too. You just have to pass the image path to the `withImage` 
+method.
 ````php
 public function toTwitter($notifiable) {
-    return new TwitterStatusUpdate(
-        'Laravel notifications are awesome!',
-        [public_path('marcel.png'), public_path('mohamed.png'), public_path('freek.png')]
-    );
+    return (new TwitterStatusUpdate('Laravel notifications are awesom!'))->withImage('marcel.png');
 }
+````
+If you want to use multiple images, just pass an array of paths.
+````php
+return (new TwitterStatusUpdate('Laravel notifications are awesom!'))->withImage([
+    public_path('marcel.png'),
+    public_path('mohamed.png')
+]);
 ````
 ### Send a direct message
 To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter 
