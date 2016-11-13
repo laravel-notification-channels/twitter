@@ -85,7 +85,6 @@ class ChannelTest extends TestCase
 
         $this->channel->send(new TestNotifiable(), new TestNotification());
     }
-
 }
 
 

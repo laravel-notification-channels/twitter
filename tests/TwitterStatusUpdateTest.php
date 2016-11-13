@@ -2,11 +2,13 @@
 
 namespace NotificationChannels\Twitter\Test;
 
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterImage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
 class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
 {
+
     /** @var TwitterStatusUpdate */
     protected $message;
 
@@ -32,7 +34,7 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
         $message = (new TwitterStatusUpdate('myMessage'))->withImage('image1.png');
 
         $this->assertEquals('myMessage', $message->getContent());
-        $this->assertEquals([ new TwitterImage('image1.png') ], $message->getImages());
+        $this->assertEquals([new TwitterImage('image1.png')], $message->getImages());
     }
 
     /** @test */
@@ -40,7 +42,9 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
     {
         $imagePaths = ['path1', 'path2'];
         $message = (new TwitterStatusUpdate('myMessage'))->withImage($imagePaths);
-        $imagePathsObjects = collect($imagePaths)->map(function($image){ return new TwitterImage($image); })->toArray();
+        $imagePathsObjects = collect($imagePaths)->map(function ($image) {
+            return new TwitterImage($image);
+        })->toArray();
 
         $this->assertEquals('myMessage', $message->getContent());
         $this->assertEquals($imagePathsObjects, $message->getImages());
@@ -57,4 +61,41 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
             'media_ids' => '434,435,436',
         ]);
     }
+
+    /** @test */
+    public function it_throws_an_exception_when_the_status_update_is_too_long()
+    {
+        $tooLongMessage = 'Laravel Notification Channels are awesome and this message is far too long for a Twitter 
+            status update and this is why an exception is thrown!';
+
+        try {
+            $statusUpdate = new TwitterStatusUpdate($tooLongMessage);
+        } catch (CouldNotSendNotification $e) {
+            $this->assertEquals(CouldNotSendNotification::class, get_class($e));
+        }
+    }
+
+    /** @test */
+    public function it_provides_exceeded_message_count_when_the_status_update_is_too_long()
+    {
+        $tooLongMessage = 'Laravel Notification Channels are awesome and this message is far too long for a Twitter status update because of this URL https://github.com/laravel-notification-channels';
+
+        try {
+            $statusUpdate = new TwitterStatusUpdate($tooLongMessage);
+        } catch (CouldNotSendNotification $e) {
+            $this->assertEquals("Couldn't post Notification, because the status message was too long by 6 character(s).",
+                $e->getMessage());
+        }
+
+        $anotherTooLongMessage = 'Laravel Notification Channels are awesome and this message is just in length so that Twitter does not complain!!!!!!! https://github.com/laravel-notification-channels';
+
+        try {
+            $statusUpdate = new TwitterStatusUpdate($anotherTooLongMessage);
+        } catch (CouldNotSendNotification $e) {
+            $this->assertEquals("Couldn't post Notification, because the status message was too long by 1 character(s).",
+                $e->getMessage());
+        }
+
+    }
+
 }

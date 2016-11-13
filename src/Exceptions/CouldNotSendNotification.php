@@ -10,4 +10,10 @@ class CouldNotSendNotification extends \Exception
 
         return new static("Couldn't post Notification. Response: ".$responseBody);
     }
+
+    public static function statusUpdateTooLong($exceededLength)
+    {
+        return new static("Couldn't post Notification, because the status message was too long by " .
+            $exceededLength . " character(s).");
+    }
 }

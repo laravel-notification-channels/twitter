@@ -2,10 +2,13 @@
 
 namespace NotificationChannels\Twitter;
 
+use Kylewm\Brevity\Brevity;
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterImage;
 
 class TwitterStatusUpdate
 {
+
     /** @var string */
     protected $content;
 
@@ -29,6 +32,9 @@ class TwitterStatusUpdate
      */
     public function __construct($content)
     {
+        if ($exceededLength = $this->messageIsTooLong($content, new Brevity())) {
+            throw CouldNotSendNotification::statusUpdateTooLong($exceededLength);
+        }
         $this->content = $content;
     }
 
@@ -38,10 +44,12 @@ class TwitterStatusUpdate
      * @param   array|string $images
      * @return  $this
      */
-    public function withImage($images){
-        collect($images)->each(function($image){
+    public function withImage($images)
+    {
+        collect($images)->each(function ($image) {
             $this->images[] = new TwitterImage($image);
         });
+
         return $this;
     }
 
@@ -89,5 +97,19 @@ class TwitterStatusUpdate
         }
 
         return $body;
+    }
+
+    /**
+     * Check if the message length is too long
+     * @param $content
+     * @param $brevity
+     * @return int
+     */
+    private function messageIsTooLong($content, $brevity)
+    {
+        $tweetLength = $brevity->tweetLength($content);
+        $exceededLength = $tweetLength - 140;
+
+        return $exceededLength > 0 ? $exceededLength : 0;
     }
 }
