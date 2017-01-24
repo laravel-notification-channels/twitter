@@ -121,7 +121,7 @@ To send a Twitter direct message to a specific user, you will need the `TwitterD
 user handler as the first parameter and the the message as the second one.
 ````php
 public function toTwitter($notifiable) {
-     return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Larcon.');
+     return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Laracon.');
 }
 ```` 
 Make sure the user is following you on Twitter to make this work.
