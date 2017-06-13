@@ -8,7 +8,6 @@ use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel
 {
-
     /** @var TwitterOAuth */
     protected $twitter;
 

@@ -4,7 +4,6 @@ namespace NotificationChannels\Twitter;
 
 use Kylewm\Brevity\Brevity;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
-use NotificationChannels\Twitter\TwitterImage;
 
 class TwitterStatusUpdate
 {
