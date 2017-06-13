@@ -55,10 +55,10 @@ You will need to [create](https://apps.twitter.com/) a Twitter app in order to u
 ```php
 ...
 'twitter' => [
-	'consumer_key'    => getenv('TWITTER_CONSUMER_KEY'),
-	'consumer_secret' => getenv('TWITTER_CONSUMER_SECRET'),
-	'access_token'    => getenv('TWITTER_ACCESS_TOKEN'),
-	'access_secret'   => getenv('TWITTER_ACCESS_SECRET')
+	'consumer_key'    => env('TWITTER_CONSUMER_KEY'),
+	'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
+	'access_token'    => env('TWITTER_ACCESS_TOKEN'),
+	'access_secret'   => env('TWITTER_ACCESS_SECRET')
 ]
 ...
 ```
@@ -89,7 +89,8 @@ class NewsWasPublished extends Notification
         return [TwitterChannel::class];
     }
 
-    public function toTwitter($notifiable) {
+    public function toTwitter($notifiable)
+    {
         return new TwitterStatusUpdate('Laravel notifications are awesome!');
     }
 }
@@ -97,7 +98,8 @@ class NewsWasPublished extends Notification
 
 Take a closer look at the `TwitterStatusUpdate` object. This is where the magic happens.
 ````php
-public function toTwitter($notifiable) {
+public function toTwitter($notifiable)
+{
     return new TwitterStatusUpdate('Laravel notifications are awesome!');
 }
 ````
@@ -105,7 +107,8 @@ public function toTwitter($notifiable) {
 It is possible to publish images with your status update too. You just have to pass the image path to the `withImage` 
 method.
 ````php
-public function toTwitter($notifiable) {
+public function toTwitter($notifiable)
+{
     return (new TwitterStatusUpdate('Laravel notifications are awesom!'))->withImage('marcel.png');
 }
 ````
@@ -120,7 +123,8 @@ return (new TwitterStatusUpdate('Laravel notifications are awesom!'))->withImage
 To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter 
 user handler as the first parameter and the the message as the second one.
 ````php
-public function toTwitter($notifiable) {
+public function toTwitter($notifiable)
+{
      return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Laracon.');
 }
 ```` 
