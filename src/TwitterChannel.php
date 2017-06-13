@@ -8,7 +8,6 @@ use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel
 {
-
     /** @var TwitterOAuth */
     protected $twitter;
 
@@ -38,7 +37,7 @@ class TwitterChannel
         if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getImages()) {
             $this->twitter->setTimeouts(10, 15);
 
-            $twitterMessage->imageIds = collect($twitterMessage->getImages())->map(function ($image) {
+            $twitterMessage->imageIds = collect($twitterMessage->getImages())->map(function (TwitterImage $image) {
                 $media = $this->twitter->upload('media/upload', ['media' => $image->getPath()]);
 
                 return $media->media_id_string;
@@ -53,7 +52,7 @@ class TwitterChannel
     }
 
     /**
-     * Use per user settings instead of default ones
+     * Use per user settings instead of default ones.
      * @param $twitterSettings
      */
     private function switchSettings($twitterSettings)
@@ -61,5 +60,4 @@ class TwitterChannel
         $this->twitter = new TwitterOAuth($twitterSettings[0], $twitterSettings[1], $twitterSettings[2],
             $twitterSettings[3]);
     }
-
 }

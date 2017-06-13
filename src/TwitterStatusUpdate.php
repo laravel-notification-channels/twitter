@@ -4,11 +4,9 @@ namespace NotificationChannels\Twitter;
 
 use Kylewm\Brevity\Brevity;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
-use NotificationChannels\Twitter\TwitterImage;
 
 class TwitterStatusUpdate
 {
-
     /** @var string */
     protected $content;
 
@@ -100,12 +98,12 @@ class TwitterStatusUpdate
     }
 
     /**
-     * Check if the message length is too long
+     * Check if the message length is too long.
      * @param $content
      * @param $brevity
      * @return int
      */
-    private function messageIsTooLong($content, $brevity)
+    private function messageIsTooLong($content, Brevity $brevity)
     {
         $tweetLength = $brevity->tweetLength($content);
         $exceededLength = $tweetLength - 140;
