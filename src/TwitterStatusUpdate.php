@@ -105,7 +105,7 @@ class TwitterStatusUpdate
      * @param $brevity
      * @return int
      */
-    private function messageIsTooLong($content, $brevity)
+    private function messageIsTooLong($content, Brevity $brevity)
     {
         $tweetLength = $brevity->tweetLength($content);
         $exceededLength = $tweetLength - 140;

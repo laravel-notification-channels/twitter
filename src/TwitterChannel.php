@@ -3,6 +3,7 @@
 namespace NotificationChannels\Twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
@@ -38,7 +39,7 @@ class TwitterChannel
         if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getImages()) {
             $this->twitter->setTimeouts(10, 15);
 
-            $twitterMessage->imageIds = collect($twitterMessage->getImages())->map(function ($image) {
+            $twitterMessage->imageIds = collect($twitterMessage->getImages())->map(function (TwitterImage $image) {
                 $media = $this->twitter->upload('media/upload', ['media' => $image->getPath()]);
 
                 return $media->media_id_string;
