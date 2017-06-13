@@ -8,7 +8,6 @@ use NotificationChannels\Twitter\TwitterImage;
 
 class TwitterStatusUpdate
 {
-
     /** @var string */
     protected $content;
 
@@ -100,7 +99,7 @@ class TwitterStatusUpdate
     }
 
     /**
-     * Check if the message length is too long
+     * Check if the message length is too long.
      * @param $content
      * @param $brevity
      * @return int

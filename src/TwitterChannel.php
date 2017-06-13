@@ -3,7 +3,6 @@
 namespace NotificationChannels\Twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
@@ -54,7 +53,7 @@ class TwitterChannel
     }
 
     /**
-     * Use per user settings instead of default ones
+     * Use per user settings instead of default ones.
      * @param $twitterSettings
      */
     private function switchSettings($twitterSettings)
@@ -62,5 +61,4 @@ class TwitterChannel
         $this->twitter = new TwitterOAuth($twitterSettings[0], $twitterSettings[1], $twitterSettings[2],
             $twitterSettings[3]);
     }
-
 }
