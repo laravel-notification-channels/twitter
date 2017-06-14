@@ -109,12 +109,12 @@ method.
 ````php
 public function toTwitter($notifiable)
 {
-    return (new TwitterStatusUpdate('Laravel notifications are awesom!'))->withImage('marcel.png');
+    return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withImage('marcel.png');
 }
 ````
 If you want to use multiple images, just pass an array of paths.
 ````php
-return (new TwitterStatusUpdate('Laravel notifications are awesom!'))->withImage([
+return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withImage([
     public_path('marcel.png'),
     public_path('mohamed.png')
 ]);
