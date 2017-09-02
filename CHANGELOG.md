@@ -2,6 +2,10 @@
 
 All notable changes to the `Twitter notification channel` will be documented in this file
 
+## 1.0.4 - 2017-09-02
+
+- add Laravel 5.5 support
+
 ## 1.0.3 - 2017-01-27
 
 - add Laravel 5.4 support

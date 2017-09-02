@@ -42,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "NotificationChannels\\TWitter\\TwitterServiceProvider"
+                "NotificationChannels\\Twitter\\TwitterServiceProvider"
             ]
         }
     }

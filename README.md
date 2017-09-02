@@ -9,7 +9,7 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/twitter/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/twitter/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/twitter.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/twitter)
 
-This package makes it easy to send notifications using [Twitter](https://dev.twitter.com/rest/public) with Laravel 5.4.
+This package makes it easy to send notifications using [Twitter](https://dev.twitter.com/rest/public) with Laravel 5.3+.
 
 ## Contents
 
