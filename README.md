@@ -73,7 +73,7 @@ Follow Laravel's documentation to add the channel to your Notification class.
 
 ```php
 use NotificationChannels\Twitter\TwitterChannel;
-use NotificationChannels\Twitter\TwitterMessage;
+use NotificationChannels\Twitter\TwitterStatusUpdate;
 
 class NewsWasPublished extends Notification
 {
