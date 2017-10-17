@@ -2,6 +2,7 @@
 
 namespace NotificationChannels\Twitter;
 
+use Illuminate\Support\Collection;
 use Kylewm\Brevity\Brevity;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
@@ -16,7 +17,7 @@ class TwitterStatusUpdate
     private $images;
 
     /**
-     * @var  array
+     * @var  Collection
      */
     public $imageIds;
 
