@@ -14,4 +14,3 @@ class TwitterImageTest extends TestCase
         $this->assertEquals('/foo/bar/baz.png', $image->getPath());
     }
 }
-

@@ -6,7 +6,6 @@ use Mockery;
 use stdClass;
 use Orchestra\Testbench\TestCase;
 use Abraham\TwitterOAuth\TwitterOAuth;
-use NotificationChannels\Twitter\Twitter;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
@@ -84,7 +83,6 @@ class ChannelTest extends TestCase
     }
 }
 
-
 class TestNotifiable
 {
     use \Illuminate\Notifications\Notifiable;
@@ -100,7 +98,6 @@ class TestNotifiable
 
 class TestNotification extends Notification
 {
-
     public function toTwitter($notifiable)
     {
         return new TwitterStatusUpdate('Laravel Notification Channels are awesome!');
