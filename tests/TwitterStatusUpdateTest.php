@@ -2,13 +2,12 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterImage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var TwitterStatusUpdate */
     protected $message;
 
@@ -95,7 +94,5 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals("Couldn't post Notification, because the status message was too long by 1 character(s).",
                 $e->getMessage());
         }
-
     }
-
 }

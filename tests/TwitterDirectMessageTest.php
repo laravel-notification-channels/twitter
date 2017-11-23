@@ -22,13 +22,13 @@ class TwitterDirectMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('myMessage', $this->message->getContent());
     }
 
-	/** @test */
+    /** @test */
     public function it_can_get_the_content()
     {
         $this->assertEquals('myMessage', $this->message->getContent());
     }
 
-	/** @test */
+    /** @test */
     public function it_can_get_the_receiver()
     {
         $this->assertEquals('receiver', $this->message->getReceiver());
@@ -43,10 +43,10 @@ class TwitterDirectMessageTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_get_the_request_body()
     {
-		$expected = [
-			'screen_name' => 'receiver',
-			'text' => 'myMessage',
-		];
+        $expected = [
+            'screen_name' => 'receiver',
+            'text' => 'myMessage',
+        ];
         $this->assertEquals($expected, $this->message->getRequestBody());
     }
 }
