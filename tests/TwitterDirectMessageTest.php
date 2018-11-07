@@ -4,7 +4,7 @@ namespace NotificationChannels\Twitter\Test;
 
 use NotificationChannels\Twitter\TwitterDirectMessage;
 
-class TwitterDirectMessageTest extends \PHPUnit_Framework_TestCase
+class TwitterDirectMessageTest extends TestCase
 {
     /** @var TwitterDirectMessage */
     protected $message;
