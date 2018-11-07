@@ -34,6 +34,7 @@ class TwitterStatusUpdate
         if ($exceededLength = $this->messageIsTooLong($content, new Brevity())) {
             throw CouldNotSendNotification::statusUpdateTooLong($exceededLength);
         }
+
         $this->content = $content;
     }
 

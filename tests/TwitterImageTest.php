@@ -2,7 +2,6 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Orchestra\Testbench\TestCase;
 use NotificationChannels\Twitter\TwitterImage;
 
 class TwitterImageTest extends TestCase

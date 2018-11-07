@@ -6,7 +6,7 @@ use NotificationChannels\Twitter\TwitterImage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
-class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
+class TwitterStatusUpdateTest extends TestCase
 {
     /** @var TwitterStatusUpdate */
     protected $message;
@@ -64,8 +64,7 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_throws_an_exception_when_the_status_update_is_too_long()
     {
-        $tooLongMessage = 'Laravel Notification Channels are awesome and this message is far too long for a Twitter 
-            status update and this is why an exception is thrown!';
+        $tooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior defined count.';
 
         try {
             $statusUpdate = new TwitterStatusUpdate($tooLongMessage);
@@ -77,21 +76,21 @@ class TwitterStatusUpdateTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_provides_exceeded_message_count_when_the_status_update_is_too_long()
     {
-        $tooLongMessage = 'Laravel Notification Channels are awesome and this message is far too long for a Twitter status update because of this URL https://github.com/laravel-notification-channels';
+        $tooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior define count.';
 
         try {
             $statusUpdate = new TwitterStatusUpdate($tooLongMessage);
         } catch (CouldNotSendNotification $e) {
-            $this->assertEquals("Couldn't post Notification, because the status message was too long by 6 character(s).",
+            $this->assertEquals("Couldn't post Notification, because the status message was too long by 8 character(s).",
                 $e->getMessage());
         }
 
-        $anotherTooLongMessage = 'Laravel Notification Channels are awesome and this message is just in length so that Twitter does not complain!!!!!!! https://github.com/laravel-notification-channels';
+        $anotherTooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior define count!!';
 
         try {
             $statusUpdate = new TwitterStatusUpdate($anotherTooLongMessage);
         } catch (CouldNotSendNotification $e) {
-            $this->assertEquals("Couldn't post Notification, because the status message was too long by 1 character(s).",
+            $this->assertEquals("Couldn't post Notification, because the status message was too long by 9 character(s).",
                 $e->getMessage());
         }
     }

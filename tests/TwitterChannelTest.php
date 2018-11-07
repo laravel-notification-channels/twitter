@@ -4,7 +4,6 @@ namespace NotificationChannels\Twitter\Test;
 
 use Mockery;
 use stdClass;
-use Orchestra\Testbench\TestCase;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\TwitterChannel;
@@ -24,12 +23,6 @@ class ChannelTest extends TestCase
         parent::setUp();
         $this->twitter = Mockery::mock(TwitterOAuth::class);
         $this->channel = new TwitterChannel($this->twitter);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
-        parent::tearDown();
     }
 
     /** @test */
@@ -77,7 +70,7 @@ class ChannelTest extends TestCase
 
         $this->twitter->shouldReceive('getLastBody')->once()->andReturn($twitterResponse);
 
-        $this->setExpectedException(CouldNotSendNotification::class);
+        $this->expectException(CouldNotSendNotification::class);
 
         $this->channel->send(new TestNotifiable(), new TestNotification());
     }
