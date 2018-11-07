@@ -6,8 +6,7 @@ use Mockery;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
-
-    function tearDown()
+    public function tearDown()
     {
         parent::tearDown();
 
@@ -17,5 +16,4 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         Mockery::close();
     }
-
 }
