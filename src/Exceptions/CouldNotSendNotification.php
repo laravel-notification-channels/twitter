@@ -4,15 +4,34 @@ namespace NotificationChannels\Twitter\Exceptions;
 
 class CouldNotSendNotification extends \Exception
 {
-    public static function serviceRespondedWithAnError($response)
+    /**
+     * @param $response
+     * @return CouldNotSendNotification
+     */
+    public static function serviceRespondsNotSuccessful($response)
     {
         $responseBody = print_r($response->errors[0]->message, true);
 
-        return new static("Couldn't post Notification. Response: ".$responseBody);
+        return new static("Couldn't post notification. Response: ".$responseBody);
     }
 
+    /**
+     * @param $response
+     * @return CouldNotSendNotification
+     */
+    public static function userWasNotFound($response)
+    {
+        $responseBody = print_r($response->errors[0]->message, true);
+
+        return new static("Couldn't send direct message notification. Response: ".$responseBody);
+    }
+
+    /**
+     * @param $exceededLength
+     * @return CouldNotSendNotification
+     */
     public static function statusUpdateTooLong($exceededLength)
     {
-        return new static("Couldn't post Notification, because the status message was too long by ".$exceededLength.' character(s).');
+        return new static("Couldn't post notification, because the status message was too long by ".$exceededLength.' character(s).');
     }
 }

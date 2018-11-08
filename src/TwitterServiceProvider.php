@@ -12,8 +12,7 @@ class TwitterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Bootstrap code here.
-        $this->app->when(TwitterChannel::class)
+        $this->app->when([TwitterChannel::class, TwitterDirectMessage::class])
             ->needs(TwitterOAuth::class)
             ->give(function () {
                 return new TwitterOAuth(
@@ -23,12 +22,5 @@ class TwitterServiceProvider extends ServiceProvider
                     config('services.twitter.access_secret')
                 );
             });
-    }
-
-    /**
-     * Register any package services.
-     */
-    public function register()
-    {
     }
 }

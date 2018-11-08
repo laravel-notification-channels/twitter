@@ -2,23 +2,28 @@
 
 namespace NotificationChannels\Twitter;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
+
 class TwitterDirectMessage
 {
     /** @var string */
     private $content;
 
-    /**
-     * @var  string
-     */
+    /** @var  string */
     private $to;
 
-    /**
-     * @var  string
-     */
-    private $apiEndpoint = 'direct_messages/new';
+    /** @var  bool */
+    public $isJsonRequest = true;
 
-    /*
-     * @param  string $content
+    /** @var  string */
+    private $apiEndpoint = 'direct_messages/events/new';
+
+    /**
+     * TwitterDirectMessage constructor.
+     *
+     * @param $to
+     * @param $content
      */
     public function __construct($to, $content)
     {
@@ -27,7 +32,7 @@ class TwitterDirectMessage
     }
 
     /**
-     * Get Twitter direct messsage content.
+     * Get Twitter direct message content.
      *
      * @return  string
      */
@@ -39,15 +44,32 @@ class TwitterDirectMessage
     /**
      * Get Twitter direct message receiver.
      *
+     * @param TwitterOAuth $twitter
      * @return  string
+     * @throws CouldNotSendNotification
      */
-    public function getReceiver()
+    public function getReceiver(TwitterOAuth $twitter)
     {
-        return $this->to;
+        if (is_int($this->to)) {
+            return $this->to;
+        }
+
+        $user = $twitter->get('users/show', [
+            'screen_name' => $this->to,
+            'include_user_entities' => false,
+            'skip_status' => true,
+        ]);
+
+        if($twitter->getLastHttpCode() === 404){
+            throw CouldNotSendNotification::userWasNotFound($twitter->getLastBody());
+        }
+
+        return $user->id;
     }
 
     /**
      * Return Twitter direct message api endpoint.
+     *
      * @return  string
      */
     public function getApiEndpoint()
@@ -57,15 +79,25 @@ class TwitterDirectMessage
 
     /**
      * Build Twitter request body.
+     *
+     * @param TwitterOAuth $twitter
      * @return  array
+     * @throws CouldNotSendNotification
      */
-    public function getRequestBody()
+    public function getRequestBody(TwitterOAuth $twitter)
     {
-        $body = [
-            'screen_name' => $this->getReceiver(),
-            'text'        => $this->getContent(),
+        return [
+            'event' => [
+                'type' => 'message_create',
+                'message_create' => [
+                    'target' => [
+                        'recipient_id' => $this->getReceiver($twitter),
+                    ],
+                    'message_data' => [
+                        'text' => $this->getContent(),
+                    ],
+                ],
+            ],
         ];
-
-        return $body;
     }
 }

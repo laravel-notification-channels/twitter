@@ -11,23 +11,23 @@ class TwitterStatusUpdate
     /** @var string */
     protected $content;
 
-    /**
-     * @var  array
-     */
+    /** @var  array */
     private $images;
 
-    /**
-     * @var  Collection
-     */
+    /** @var  bool */
+    public $isJsonRequest = false;
+
+    /** @var  Collection */
     public $imageIds;
 
-    /**
-     * @var  string
-     */
+    /** @var  string */
     private $apiEndpoint = 'statuses/update';
 
-    /*
-     * @param  string $content
+    /**
+     * TwitterStatusUpdate constructor.
+     *
+     * @param $content
+     * @throws CouldNotSendNotification
      */
     public function __construct($content)
     {
@@ -66,7 +66,7 @@ class TwitterStatusUpdate
     /**
      * Get Twitter images list.
      *
-     * @return  string
+     * @return array
      */
     public function getImages()
     {
