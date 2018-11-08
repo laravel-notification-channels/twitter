@@ -10,13 +10,13 @@ class TwitterDirectMessage
     /** @var string */
     private $content;
 
-    /** @var  string */
+    /** @var string */
     private $to;
 
-    /** @var  bool */
+    /** @var bool */
     public $isJsonRequest = true;
 
-    /** @var  string */
+    /** @var string */
     private $apiEndpoint = 'direct_messages/events/new';
 
     /**
@@ -60,7 +60,7 @@ class TwitterDirectMessage
             'skip_status' => true,
         ]);
 
-        if($twitter->getLastHttpCode() === 404){
+        if ($twitter->getLastHttpCode() === 404) {
             throw CouldNotSendNotification::userWasNotFound($twitter->getLastBody());
         }
 

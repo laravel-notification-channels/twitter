@@ -2,10 +2,9 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
 use Mockery;
+use Abraham\TwitterOAuth\TwitterOAuth;
 use NotificationChannels\Twitter\TwitterDirectMessage;
-use stdClass;
 
 class TwitterDirectMessageTest extends TestCase
 {
@@ -47,13 +46,17 @@ class TwitterDirectMessageTest extends TestCase
     /** @test */
     public function it_can_get_the_receiver_for_screen_name()
     {
-        $this->twitter->shouldReceive('get')->once()->with('users/show', [
-            'screen_name' => 'receiver',
-            'include_user_entities' => false,
-            'skip_status' => true,
-        ])->once()->andReturn((object)['id' => 1234]);
+        $this->twitter->shouldReceive('get')
+            ->once()
+            ->with('users/show', [
+                'screen_name' => 'receiver',
+                'include_user_entities' => false,
+                'skip_status' => true,
+            ])->once()->andReturn((object) ['id' => 1234]);
 
-        $this->twitter->shouldReceive('getLastHttpCode')->once()->andReturn(200);
+        $this->twitter->shouldReceive('getLastHttpCode')
+            ->once()
+            ->andReturn(200);
 
         $this->assertEquals(1234, $this->messageWithScreenName->getReceiver($this->twitter));
     }
@@ -72,13 +75,13 @@ class TwitterDirectMessageTest extends TestCase
                 'type' => 'message_create',
                 'message_create' => [
                     'target' => [
-                        'recipient_id' => 1234
+                        'recipient_id' => 1234,
                     ],
                     'message_data' => [
-                        'text' => 'myMessage'
-                    ]
-                ]
-            ]
+                        'text' => 'myMessage',
+                    ],
+                ],
+            ],
         ];
 
         $this->assertEquals($expected, $this->messageWithUserId->getRequestBody($this->twitter));

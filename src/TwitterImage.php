@@ -20,7 +20,7 @@ class TwitterImage
     /**
      * Get image path.
      *
-     * @return  string
+     * @return string
      */
     public function getPath()
     {
