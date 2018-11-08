@@ -4,7 +4,7 @@ namespace NotificationChannels\Twitter;
 
 class TwitterImage
 {
-    /** @var  string */
+    /** @var string */
     private $imagePath;
 
     /**
