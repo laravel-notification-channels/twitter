@@ -2,6 +2,13 @@
 
 All notable changes to the `Twitter notification channel` will be documented in this file
 
+## 2.0.0 - 2018-11-08
+
+- update dependencies
+- drop support for Laravel 5.3, 5.4 and 5.5
+- update Twitter direct message API call
+- requires PHP >=7.1.0
+
 ## 1.0.4 - 2017-09-02
 
 - add Laravel 5.5 support

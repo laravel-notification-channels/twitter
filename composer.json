@@ -1,20 +1,20 @@
 {
     "name": "laravel-notification-channels/twitter",
-    "description": "This package makes it easy to send notifications via Twitter with Laravel 5.4",
+    "description": "This package makes it easy to send notifications via Twitter with Laravel",
     "homepage": "https://github.com/laravel-notification-channels/twitter",
     "license": "MIT",
     "authors": [
         {
             "name": "Christoph Rumpel",
             "email": "c.rumpel@kabsi.at",
-            "homepage": "http://christoph-rumpel.com",
+            "homepage": "https://christoph-rumpel.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1.0",
         "abraham/twitteroauth": "^0.9.2",
-        "illuminate/notifications": "5.7.*",
+        "illuminate/notifications": "5.6.*|5.7.*",
         "illuminate/support": "5.7.*",
         "kylewm/brevity": "^0.2.9"
     },
@@ -22,7 +22,7 @@
     "require-dev": {
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^7.3",
-        "orchestra/testbench": "~3.7"
+        "orchestra/testbench": "~3.6|~3.7"
     },
     "autoload": {
         "psr-4": {

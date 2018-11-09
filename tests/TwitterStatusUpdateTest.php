@@ -81,7 +81,7 @@ class TwitterStatusUpdateTest extends TestCase
         try {
             $statusUpdate = new TwitterStatusUpdate($tooLongMessage);
         } catch (CouldNotSendNotification $e) {
-            $this->assertEquals("Couldn't post Notification, because the status message was too long by 8 character(s).",
+            $this->assertEquals("Couldn't post notification, because the status message was too long by 8 character(s).",
                 $e->getMessage());
         }
 
@@ -90,7 +90,7 @@ class TwitterStatusUpdateTest extends TestCase
         try {
             $statusUpdate = new TwitterStatusUpdate($anotherTooLongMessage);
         } catch (CouldNotSendNotification $e) {
-            $this->assertEquals("Couldn't post Notification, because the status message was too long by 9 character(s).",
+            $this->assertEquals("Couldn't post notification, because the status message was too long by 9 character(s).",
                 $e->getMessage());
         }
     }

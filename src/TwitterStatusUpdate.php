@@ -11,23 +11,23 @@ class TwitterStatusUpdate
     /** @var string */
     protected $content;
 
-    /**
-     * @var  array
-     */
+    /** @var array */
     private $images;
 
-    /**
-     * @var  Collection
-     */
+    /** @var bool */
+    public $isJsonRequest = false;
+
+    /** @var Collection */
     public $imageIds;
 
-    /**
-     * @var  string
-     */
+    /** @var string */
     private $apiEndpoint = 'statuses/update';
 
-    /*
-     * @param  string $content
+    /**
+     * TwitterStatusUpdate constructor.
+     *
+     * @param $content
+     * @throws CouldNotSendNotification
      */
     public function __construct($content)
     {
@@ -66,7 +66,7 @@ class TwitterStatusUpdate
     /**
      * Get Twitter images list.
      *
-     * @return  string
+     * @return array
      */
     public function getImages()
     {
@@ -75,6 +75,7 @@ class TwitterStatusUpdate
 
     /**
      * Return Twitter status update api endpoint.
+     *
      * @return  string
      */
     public function getApiEndpoint()
@@ -84,6 +85,7 @@ class TwitterStatusUpdate
 
     /**
      * Build Twitter request body.
+     *
      * @return  array
      */
     public function getRequestBody()
@@ -101,6 +103,7 @@ class TwitterStatusUpdate
 
     /**
      * Check if the message length is too long.
+     *
      * @param $content
      * @param $brevity
      * @return int
