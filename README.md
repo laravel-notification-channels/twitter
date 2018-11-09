@@ -36,6 +36,8 @@ The Twitter channel makes it possible to send out Laravel notifications as a `Tw
 
 ## Installation
 
+If you prefer a video, there is also [an introduction video](https://christoph-rumpel.com/2018/11/sending-laravel-notifications-via-twitter) available for you. If not, just read one.
+
 You can install this package via composer:
 
 ``` bash
