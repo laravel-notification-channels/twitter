@@ -18,7 +18,7 @@ class TwitterChannelTest extends TestCase
     /** @var \NotificationChannels\Twitter\TwitterChannel */
     protected $channel;
 
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
         $this->twitter = Mockery::mock(TwitterOAuth::class);

@@ -16,7 +16,7 @@ class TwitterDirectMessageTest extends TestCase
 
     protected $twitter;
 
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
         $this->twitter = Mockery::mock(TwitterOAuth::class);
