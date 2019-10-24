@@ -48,7 +48,7 @@ The service provider gets loaded automatically.
 
 ### Setting up the Twitter service
 
-You will need to [create](https://apps.twitter.com/) a Twitter app to use this channel. Within in this app, you will find the `keys and access tokens`. Place them inside your `.env` file. To load them, add this to your `config/services.php` file:
+You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within in this app, you will find the `keys and access tokens`. Place them inside your `.env` file. To load them, add this to your `config/services.php` file:
 
 ```php
 ...
