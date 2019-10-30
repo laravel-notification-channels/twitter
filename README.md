@@ -19,7 +19,7 @@ This package makes it easy to send notifications using [Twitter](https://dev.twi
 - [Usage](#usage)
     - [Publish Twitter status update](#publish-twitter-status-update)
     - [Publish Twitter status update with images](#publish-twitter-status-update-with-images)
-	- [Send a direct message](#send-a-direct-message)
+   - [Send a direct message](#send-a-direct-message)
 - [Handle multiple Twitter Accounts](#handle-multiple-twitter-accounts)
 - [Changelog](#changelog)
 - [Testing](#testing)
@@ -48,7 +48,7 @@ The service provider gets loaded automatically.
 
 ### Setting up the Twitter service
 
-You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within in this app, you will find the `keys and access tokens`. Place them inside your `.env` file. To load them, add this to your `config/services.php` file:
+You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within this app, you will find the `keys and access tokens`. Place them inside your `.env` file. To load them, add this to your `config/services.php` file:
 
 ```php
 ...
@@ -67,7 +67,7 @@ This will load the Twitter app data from the `.env` file. Make sure to use the s
 
 To use this package, you need to create a notification class, like `NewsWasPublished` from the example below, in your Laravel application. Make sure to check out [Laravel's documentation](https://laravel.com/docs/master/notifications) for this process.
 
-### Publish Twitter status update
+### Publish a Twitter status update
 
 ```php
 <?php
@@ -138,23 +138,23 @@ public function toTwitter($notifiable)
 
 ## Handle multiple Twitter Accounts
 
-There might be cases where you need handle multiple Twitter accounts. This means you need to be able to change the provided keys and tokens of your Twitter app. Luckily, [Laravel](https://laravel.com/docs/master/notifications#customizing-the-recipient) can help you here. In your notifiable model, you can define the `routeNotifiactionForTwitter` method. Here you can override the provided settings.
+There might be cases where you need to handle multiple Twitter accounts. This means you need to be able to change the provided keys and tokens of your Twitter app. Luckily, [Laravel](https://laravel.com/docs/master/notifications#customizing-the-recipient) can help you here. In your notifiable model, you can define the `routeNotifiactionForTwitter` method. Here you can override the provided settings.
 
 ````php
 public function routeNotificationForTwitter($notification)
 {
-	return [
-		'TWITTER_CONSUMER_KEY',
-		'TWITTER_CONSUMER_SECRET',
-		'TWITTER_ACCESS_TOKEN',
-		'TWITTER_ACCESS_SECRET',
-	];
+   return [
+      'TWITTER_CONSUMER_KEY',
+      'TWITTER_CONSUMER_SECRET',
+      'TWITTER_ACCESS_TOKEN',
+      'TWITTER_ACCESS_SECRET',
+   ];
 }
 ````
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
 
 ## Testing
 
