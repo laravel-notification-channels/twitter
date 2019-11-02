@@ -2,13 +2,13 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Mockery;
-use stdClass;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Notifications\Notification;
+use Mockery;
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
-use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
+use stdClass;
 
 class TwitterChannelTest extends TestCase
 {

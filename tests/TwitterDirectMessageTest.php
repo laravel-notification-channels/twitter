@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Mockery;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Mockery;
 use NotificationChannels\Twitter\TwitterDirectMessage;
 
 class TwitterDirectMessageTest extends TestCase
