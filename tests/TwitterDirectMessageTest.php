@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Mockery;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Mockery;
 use NotificationChannels\Twitter\TwitterDirectMessage;
 
 class TwitterDirectMessageTest extends TestCase
@@ -16,7 +16,7 @@ class TwitterDirectMessageTest extends TestCase
 
     protected $twitter;
 
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         $this->twitter = Mockery::mock(TwitterOAuth::class);

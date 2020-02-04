@@ -2,9 +2,9 @@
 
 namespace NotificationChannels\Twitter\Test;
 
+use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterImage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
-use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterStatusUpdateTest extends TestCase
 {
