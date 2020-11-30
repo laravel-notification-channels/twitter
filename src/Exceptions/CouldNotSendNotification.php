@@ -10,7 +10,7 @@ class CouldNotSendNotification extends \Exception
      */
     public static function serviceRespondsNotSuccessful($response)
     {
-        if (isset($response->error)){
+        if (isset($response->error)) {
             return new static("Couldn't post notification. Response: ".$response->error);
         }
 
