@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "php": "^7.3",
-        "abraham/twitteroauth": "^1.0.0",
+        "php": "^7.3|^8.0",
+        "abraham/twitteroauth": "^2.0.0",
         "illuminate/notifications": "^8.0",
         "illuminate/support": "^8.0",
         "kylewm/brevity": "^0.2.9"
