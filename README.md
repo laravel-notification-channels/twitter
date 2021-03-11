@@ -17,7 +17,7 @@ This package makes it easy to send notifications using [Twitter](https://dev.twi
 - [Installation](#installation)
 - [Setting up the Twitter service](#setting-up-the-twitter-service)
 - [Usage](#usage)
-    - [Publish Twitter status update](#publish-twitter-status-update)
+    - [Publish a Twitter status update](#publish-a-twitter-status-update)
     - [Publish Twitter status update with images](#publish-twitter-status-update-with-images)
    - [Send a direct message](#send-a-direct-message)
 - [Handle multiple Twitter Accounts](#handle-multiple-twitter-accounts)
