@@ -49,7 +49,7 @@ class TwitterChannel
      */
     private function changeTwitterSettingsIfNeeded($notifiable)
     {
-        if ($twitterSettings = $notifiable->routeNotificationFor('twitter')) {
+        if (method_exists($notifiable, 'routeNotificationFor') && $twitterSettings = $notifiable->routeNotificationFor('twitter')) {
             $this->twitter = new TwitterOAuth($twitterSettings[0], $twitterSettings[1], $twitterSettings[2],
                 $twitterSettings[3]);
         }
