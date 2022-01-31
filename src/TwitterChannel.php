@@ -16,6 +16,7 @@ class TwitterChannel
      * Send the given notification.
      *
      * @param  mixed  $notifiable  Should be an object that uses the Illuminate\Notifications\Notifiable trait.
+     *
      * @throws CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification): array|object

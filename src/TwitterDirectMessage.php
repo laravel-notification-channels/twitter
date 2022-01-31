@@ -24,6 +24,7 @@ class TwitterDirectMessage extends TwitterMessage
      *
      * @param  TwitterOAuth  $twitter
      * @return string|mixed
+     *
      * @throws CouldNotSendNotification
      */
     public function getReceiver(TwitterOAuth $twitter): mixed
@@ -50,6 +51,7 @@ class TwitterDirectMessage extends TwitterMessage
      *
      * @param  TwitterOAuth  $twitter
      * @return array
+     *
      * @throws CouldNotSendNotification
      */
     public function getRequestBody(TwitterOAuth $twitter): array
