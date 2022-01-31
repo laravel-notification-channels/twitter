@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
+use NotificationChannels\Twitter\TwitterMessage;
+use NotificationChannels\Twitter\TwitterNotification;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 use stdClass;
 
@@ -121,29 +123,29 @@ class TestNotifiableWithDifferentSettings
     }
 }
 
-class TestNotification extends Notification
+class TestNotification extends TwitterNotification
 {
     /**
-     * @param $notifiable
+     * @param  mixed  $notifiable
      * @return TwitterStatusUpdate
      *
      * @throws CouldNotSendNotification
      */
-    public function toTwitter($notifiable)
+    public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return new TwitterStatusUpdate('Laravel Notification Channels are awesome!');
     }
 }
 
-class TestNotificationWithImage extends Notification
+class TestNotificationWithImage extends TwitterNotification
 {
     /**
-     * @param $notifiable
+     * @param  mixed  $notifiable
      * @return TwitterStatusUpdate
      *
      * @throws CouldNotSendNotification
      */
-    public function toTwitter($notifiable)
+    public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))->withImage(public_path('image.png'));
     }

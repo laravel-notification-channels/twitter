@@ -19,7 +19,7 @@ class TwitterChannel
      *
      * @throws CouldNotSendNotification
      */
-    public function send($notifiable, Notification $notification): array|object
+    public function send($notifiable, TwitterNotification $notification): array|object
     {
         $this->changeTwitterSettingsIfNeeded($notifiable);
 

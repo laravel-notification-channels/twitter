@@ -72,28 +72,15 @@ To use this package, you need to create a notification class, like `NewsWasPubli
 ```php
 <?php
 
-use Illuminate\Notifications\Notification;
-use NotificationChannels\Twitter\Contracts\TwitterNotification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterMessage;
+use NotificationChannels\Twitter\TwitterNotification;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
-class NewsWasPublished extends Notification implements TwitterNotification
+class NewsWasPublished extends TwitterNotification
 {
-
     /**
-     * Get the notification's delivery channels.
-     *
      * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        return [TwitterChannel::class];
-    }
-
-    /**
-     * @param  mixed $notifiable
      * @return TwitterMessage
      */
     public function toTwitter(mixed $notifiable): TwitterMessage
