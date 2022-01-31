@@ -113,6 +113,6 @@ class TwitterStatusUpdate
         $tweetLength = $brevity->tweetLength($content);
         $exceededLength = $tweetLength - 280;
 
-        return $exceededLength > 0 ? $exceededLength : 0;
+        return max($exceededLength, 0);
     }
 }
