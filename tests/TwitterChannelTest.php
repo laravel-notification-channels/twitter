@@ -15,7 +15,7 @@ class TwitterChannelTest extends TestCase
     /** @var Mockery\Mock */
     protected $twitter;
 
-    /** @var \NotificationChannels\Twitter\TwitterChannel */
+    /** @var TwitterChannel */
     protected $channel;
 
     public function setUp(): void
