@@ -55,10 +55,10 @@ class TwitterStatusUpdateTest extends TestCase
         $message = new TwitterStatusUpdate('myMessage');
         $message->imageIds = collect([434, 435, 436]);
 
-        $this->assertEquals($message->getRequestBody(), [
+        $this->assertEquals([
             'status'    => 'myMessage',
             'media_ids' => '434,435,436',
-        ]);
+        ], $message->getRequestBody());
     }
 
     /** @test */
