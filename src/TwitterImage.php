@@ -19,7 +19,7 @@ class TwitterImage
      *
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->imagePath;
     }
