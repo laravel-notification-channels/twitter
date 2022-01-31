@@ -3,7 +3,6 @@
 namespace NotificationChannels\Twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
 class TwitterChannel

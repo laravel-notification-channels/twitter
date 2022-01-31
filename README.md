@@ -79,10 +79,6 @@ use NotificationChannels\Twitter\TwitterStatusUpdate;
 
 class NewsWasPublished extends TwitterNotification
 {
-    /**
-     * @param  mixed  $notifiable
-     * @return TwitterMessage
-     */
     public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return new TwitterStatusUpdate('Laravel notifications are awesome!');
