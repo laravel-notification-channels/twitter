@@ -10,7 +10,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::tearDown();
 
-        if ($container = \Mockery::getContainer()) {
+        if ($container = Mockery::getContainer()) {
             $this->addToAssertionCount($container->mockery_getExpectationCount());
         }
 
