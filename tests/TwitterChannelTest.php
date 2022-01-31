@@ -3,7 +3,6 @@
 namespace NotificationChannels\Twitter\Test;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
