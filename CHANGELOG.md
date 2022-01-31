@@ -6,10 +6,6 @@ All notable changes to the `Twitter notification channel` will be documented in 
 ### Added
 - Abstract parent class `TwitterMessage` for
   `TwitterStatusUpdate` and `TwitterDirectMessage`.
-- Abstract parent class `TwitterNotification` having
-  the default implementation of `via` and defining 
-  the `toTwitter` method that needs to return an
-  instance of the new `TwitterMessage` class.
 
 ### Changed
 - Add a lot of missing argument and return types.

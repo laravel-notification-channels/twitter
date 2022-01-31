@@ -3,11 +3,11 @@
 namespace NotificationChannels\Twitter\Test;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterMessage;
-use NotificationChannels\Twitter\TwitterNotification;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 use stdClass;
 
@@ -122,12 +122,9 @@ class TestNotifiableWithDifferentSettings
     }
 }
 
-class TestNotification extends TwitterNotification
+class TestNotification extends Notification
 {
     /**
-     * @param  mixed  $notifiable
-     * @return TwitterStatusUpdate
-     *
      * @throws CouldNotSendNotification
      */
     public function toTwitter(mixed $notifiable): TwitterMessage
@@ -136,12 +133,9 @@ class TestNotification extends TwitterNotification
     }
 }
 
-class TestNotificationWithImage extends TwitterNotification
+class TestNotificationWithImage extends Notification
 {
     /**
-     * @param  mixed  $notifiable
-     * @return TwitterStatusUpdate
-     *
      * @throws CouldNotSendNotification
      */
     public function toTwitter(mixed $notifiable): TwitterMessage

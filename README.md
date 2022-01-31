@@ -72,13 +72,24 @@ To use this package, you need to create a notification class, like `NewsWasPubli
 ```php
 <?php
 
+use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterMessage;
-use NotificationChannels\Twitter\TwitterNotification;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
-class NewsWasPublished extends TwitterNotification
+class NewsWasPublished extends Notification
 {
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return [TwitterChannel::class];
+    }
+
     public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return new TwitterStatusUpdate('Laravel notifications are awesome!');
@@ -87,8 +98,6 @@ class NewsWasPublished extends TwitterNotification
 ```
 
 Take a closer look at the `toTwitter` method. Here we define what kind of Twitter message we want to trigger. In this case, it is a status update message, which is just a new message in your timeline.
-
-It's recommended to also implement the `TwitterNotification` interface that requires the `toTwitter` method and also that it returns an instance of `TwitterMessage`.
 
 ````php
 public function toTwitter(mixed $notifiable): TwitterMessage
