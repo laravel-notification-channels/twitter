@@ -6,9 +6,9 @@ class CouldNotSendNotification extends \Exception
 {
     /**
      * @param $response
-     * @return CouldNotSendNotification
+     * @return static
      */
-    public static function serviceRespondsNotSuccessful($response)
+    public static function serviceRespondsNotSuccessful($response): static
     {
         if (isset($response->error)) {
             return new static("Couldn't post notification. Response: ".$response->error);
@@ -21,9 +21,9 @@ class CouldNotSendNotification extends \Exception
 
     /**
      * @param $response
-     * @return CouldNotSendNotification
+     * @return static
      */
-    public static function userWasNotFound($response)
+    public static function userWasNotFound($response): static
     {
         $responseBody = print_r($response->errors[0]->message, true);
 
@@ -32,9 +32,9 @@ class CouldNotSendNotification extends \Exception
 
     /**
      * @param $exceededLength
-     * @return CouldNotSendNotification
+     * @return static
      */
-    public static function statusUpdateTooLong($exceededLength)
+    public static function statusUpdateTooLong($exceededLength): static
     {
         return new static("Couldn't post notification, because the status message was too long by ".$exceededLength.' character(s).');
     }
