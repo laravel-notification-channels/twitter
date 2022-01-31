@@ -121,7 +121,7 @@ return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withImag
 ]);
 ````
 ### Send a direct message
-To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter user handler as the first parameter and the the message as the second one.
+To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter user handler as the first parameter and the message as the second one.
 ````php
 public function toTwitter(mixed $notifiable): TwitterMessage
 {
