@@ -52,7 +52,7 @@ class TwitterStatusUpdateTest extends TestCase
     /** @test */
     public function it_constructs_a_request_body()
     {
-        $message = new TwitterStatusUpdate('myMessage', ['path1', 'path2', 'path3']);
+        $message = new TwitterStatusUpdate('myMessage');
         $message->imageIds = collect([434, 435, 436]);
 
         $this->assertEquals($message->getRequestBody(), [
