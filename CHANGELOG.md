@@ -2,7 +2,7 @@
 
 All notable changes to the `Twitter notification channel` will be documented in this file
 
-## 6.0.0 - 2022-02-x
+## 6.0.0 - 2022-02-31
 ### Added
 - Abstract parent class `TwitterMessage` for
   `TwitterStatusUpdate` and `TwitterDirectMessage`.
@@ -10,6 +10,8 @@ All notable changes to the `Twitter notification channel` will be documented in 
 ### Changed
 - Add a lot of missing argument and return types.
 - Make use of constructor property promotion.
+- Added support for Laravel 9.
+- Dropped support for Laravel < 8 and PHP < 8.
 
 ## 2.0.0 - 2018-11-08
 
