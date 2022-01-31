@@ -8,13 +8,9 @@ use NotificationChannels\Twitter\TwitterDirectMessage;
 
 class TwitterDirectMessageTest extends TestCase
 {
-    /** @var TwitterDirectMessage */
-    protected $messageWithUserId;
-
-    /** @var TwitterDirectMessage */
-    protected $messageWithScreenName;
-
-    protected $twitter;
+    protected TwitterDirectMessage $messageWithUserId;
+    protected TwitterDirectMessage $messageWithScreenName;
+    protected TwitterOAuth $twitter;
 
     public function setUp(): void
     {
@@ -25,26 +21,26 @@ class TwitterDirectMessageTest extends TestCase
     }
 
     /** @test */
-    public function it_accepts_receiver_and_message_when_constructed()
+    public function it_accepts_receiver_and_message_when_constructed(): void
     {
         $this->assertEquals(1234, $this->messageWithUserId->getReceiver($this->twitter));
         $this->assertEquals('myMessage', $this->messageWithUserId->getContent());
     }
 
     /** @test */
-    public function it_can_get_the_content()
+    public function it_can_get_the_content(): void
     {
         $this->assertEquals('myMessage', $this->messageWithUserId->getContent());
     }
 
     /** @test */
-    public function it_can_get_the_receiver()
+    public function it_can_get_the_receiver(): void
     {
         $this->assertEquals(1234, $this->messageWithUserId->getReceiver($this->twitter));
     }
 
     /** @test */
-    public function it_can_get_the_receiver_for_screen_name()
+    public function it_can_get_the_receiver_for_screen_name(): void
     {
         $this->twitter->shouldReceive('get')
             ->once()
@@ -62,13 +58,13 @@ class TwitterDirectMessageTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_the_api_endpoint()
+    public function it_can_get_the_api_endpoint(): void
     {
         $this->assertEquals('direct_messages/events/new', $this->messageWithUserId->getApiEndpoint());
     }
 
     /** @test */
-    public function it_can_get_the_request_body()
+    public function it_can_get_the_request_body(): void
     {
         $expected = [
             'event' => [

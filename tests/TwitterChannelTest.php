@@ -3,20 +3,23 @@
 namespace NotificationChannels\Twitter\Test;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
+use NotificationChannels\Twitter\TwitterMessage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 use stdClass;
 
 class TwitterChannelTest extends TestCase
 {
-    /** @var Mockery\Mock */
+    /**
+     * @var Mockery\Mock
+     */
     protected $twitter;
 
-    /** @var \NotificationChannels\Twitter\TwitterChannel */
-    protected $channel;
+    protected TwitterChannel $channel;
 
     public function setUp(): void
     {
@@ -30,7 +33,8 @@ class TwitterChannelTest extends TestCase
     {
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!'], false);
+            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!'], false)
+            ->andReturn([]);
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
@@ -51,8 +55,12 @@ class TwitterChannelTest extends TestCase
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
-                false);
+            ->with(
+                'statuses/update',
+                ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
+                false
+            )
+            ->andReturn([]);
 
         $this->twitter->shouldReceive('upload')
             ->once()
@@ -94,10 +102,10 @@ class TwitterChannelTest extends TestCase
 
 class TestNotifiable
 {
-    use \Illuminate\Notifications\Notifiable;
+    use Notifiable;
 
     /**
-     * @return int
+     * @return false
      */
     public function routeNotificationForTwitter()
     {
@@ -107,9 +115,11 @@ class TestNotifiable
 
 class TestNotifiableWithDifferentSettings
 {
-    use \Illuminate\Notifications\Notifiable;
+    use Notifiable;
 
-    /** @return array */
+    /**
+     * @return array
+     */
     public function routeNotificationForTwitter()
     {
         return ['1', '2', '3', '4'];
@@ -119,11 +129,9 @@ class TestNotifiableWithDifferentSettings
 class TestNotification extends Notification
 {
     /**
-     * @param $notifiable
-     * @return TwitterStatusUpdate
      * @throws CouldNotSendNotification
      */
-    public function toTwitter($notifiable)
+    public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return new TwitterStatusUpdate('Laravel Notification Channels are awesome!');
     }
@@ -132,11 +140,9 @@ class TestNotification extends Notification
 class TestNotificationWithImage extends Notification
 {
     /**
-     * @param $notifiable
-     * @return TwitterStatusUpdate
      * @throws CouldNotSendNotification
      */
-    public function toTwitter($notifiable)
+    public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))->withImage(public_path('image.png'));
     }

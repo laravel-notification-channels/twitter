@@ -2,6 +2,15 @@
 
 All notable changes to the `Twitter notification channel` will be documented in this file
 
+## 6.0.0 - 2022-02-x
+### Added
+- Abstract parent class `TwitterMessage` for
+  `TwitterStatusUpdate` and `TwitterDirectMessage`.
+
+### Changed
+- Add a lot of missing argument and return types.
+- Make use of constructor property promotion.
+
 ## 2.0.0 - 2018-11-08
 
 - update dependencies

@@ -5,50 +5,28 @@ namespace NotificationChannels\Twitter;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
-class TwitterDirectMessage
+class TwitterDirectMessage extends TwitterMessage
 {
-    /** @var string */
-    private $content;
+    public bool $isJsonRequest = true;
 
-    /** @var string */
-    private $to;
-
-    /** @var bool */
-    public $isJsonRequest = true;
-
-    /** @var string */
-    private $apiEndpoint = 'direct_messages/events/new';
-
-    /**
-     * TwitterDirectMessage constructor.
-     *
-     * @param $to
-     * @param $content
-     */
-    public function __construct($to, $content)
+    public function __construct(private string|int $to, string $content)
     {
-        $this->to = $to;
-        $this->content = $content;
+        parent::__construct($content);
     }
 
-    /**
-     * Get Twitter direct message content.
-     *
-     * @return  string
-     */
-    public function getContent()
+    public function getApiEndpoint(): string
     {
-        return $this->content;
+        return 'direct_messages/events/new';
     }
 
     /**
      * Get Twitter direct message receiver.
      *
-     * @param TwitterOAuth $twitter
-     * @return  string
+     * @return string|mixed
+     *
      * @throws CouldNotSendNotification
      */
-    public function getReceiver(TwitterOAuth $twitter)
+    public function getReceiver(TwitterOAuth $twitter): mixed
     {
         if (is_int($this->to)) {
             return $this->to;
@@ -68,23 +46,11 @@ class TwitterDirectMessage
     }
 
     /**
-     * Return Twitter direct message api endpoint.
-     *
-     * @return  string
-     */
-    public function getApiEndpoint()
-    {
-        return $this->apiEndpoint;
-    }
-
-    /**
      * Build Twitter request body.
      *
-     * @param TwitterOAuth $twitter
-     * @return  array
      * @throws CouldNotSendNotification
      */
-    public function getRequestBody(TwitterOAuth $twitter)
+    public function getRequestBody(TwitterOAuth $twitter): array
     {
         return [
             'event' => [
