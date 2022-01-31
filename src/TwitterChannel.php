@@ -15,7 +15,7 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param mixed $notifiable  Should be an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param  mixed  $notifiable  Should be an object that uses the Illuminate\Notifications\Notifiable trait.
      * @throws CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification): array|object
@@ -41,7 +41,7 @@ class TwitterChannel
     /**
      * Use per user settings instead of default ones.
      *
-     * @param object $notifiable  Provide an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param  object  $notifiable  Provide an object that uses the Illuminate\Notifications\Notifiable trait.
      */
     private function changeTwitterSettingsIfNeeded(object $notifiable)
     {

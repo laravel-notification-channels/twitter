@@ -14,7 +14,8 @@ class TwitterStatusUpdate extends TwitterMessage
     /**
      * @throws CouldNotSendNotification
      */
-    public function __construct(string $content) {
+    public function __construct(string $content)
+    {
         parent::__construct($content);
 
         if ($exceededLength = $this->messageIsTooLong(new Brevity())) {
@@ -30,8 +31,8 @@ class TwitterStatusUpdate extends TwitterMessage
     /**
      * Set Twitter media files.
      *
-     * @param   array|string $images
-     * @return  $this
+     * @param  array|string  $images
+     * @return $this
      */
     public function withImage(array|string $images): static
     {
@@ -59,7 +60,7 @@ class TwitterStatusUpdate extends TwitterMessage
      */
     public function getRequestBody(): array
     {
-        $body = ['status' => $this->getContent(),];
+        $body = ['status' => $this->getContent()];
 
         if ($this->imageIds instanceof Collection) {
             $body['media_ids'] = $this->imageIds->implode(',');
@@ -71,7 +72,7 @@ class TwitterStatusUpdate extends TwitterMessage
     /**
      * Check if the message length is too long.
      *
-     * @return int  How many characters the max length is exceeded or 0 when it isn't.
+     * @return int How many characters the max length is exceeded or 0 when it isn't.
      */
     private function messageIsTooLong(Brevity $brevity): int
     {

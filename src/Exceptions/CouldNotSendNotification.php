@@ -29,7 +29,7 @@ class CouldNotSendNotification extends Exception
     {
         $responseBody = print_r($response->errors[0]->message, true);
 
-        return new static("Couldn't send direct message notification. Response: " . $responseBody);
+        return new static("Couldn't send direct message notification. Response: ".$responseBody);
     }
 
     public static function statusUpdateTooLong(int $exceededLength): CouldNotSendNotification
