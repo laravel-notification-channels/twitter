@@ -27,6 +27,7 @@ class TwitterStatusUpdate
      * TwitterStatusUpdate constructor.
      *
      * @param $content
+     *
      * @throws CouldNotSendNotification
      */
     public function __construct($content)
@@ -41,7 +42,7 @@ class TwitterStatusUpdate
     /**
      * Set Twitter media files.
      *
-     * @param  array|string $images
+     * @param  array|string  $images
      * @return $this
      */
     public function withImage($images)

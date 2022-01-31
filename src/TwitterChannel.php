@@ -24,6 +24,7 @@ class TwitterChannel
      * @param  mixed  $notifiable
      * @param  Notification  $notification
      * @return array|object
+     *
      * @throws CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
