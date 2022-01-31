@@ -3,6 +3,7 @@
 namespace NotificationChannels\Twitter\Test;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
@@ -13,11 +14,12 @@ use stdClass;
 
 class TwitterChannelTest extends TestCase
 {
-    /** @var Mockery\Mock */
+    /**
+     * @var Mockery\Mock
+     */
     protected $twitter;
 
-    /** @var \NotificationChannels\Twitter\TwitterChannel */
-    protected $channel;
+    protected TwitterChannel $channel;
 
     public function setUp(): void
     {
@@ -100,10 +102,10 @@ class TwitterChannelTest extends TestCase
 
 class TestNotifiable
 {
-    use \Illuminate\Notifications\Notifiable;
+    use Notifiable;
 
     /**
-     * @return int
+     * @return false
      */
     public function routeNotificationForTwitter()
     {
@@ -113,9 +115,11 @@ class TestNotifiable
 
 class TestNotifiableWithDifferentSettings
 {
-    use \Illuminate\Notifications\Notifiable;
+    use Notifiable;
 
-    /** @return array */
+    /**
+     * @return array
+     */
     public function routeNotificationForTwitter()
     {
         return ['1', '2', '3', '4'];

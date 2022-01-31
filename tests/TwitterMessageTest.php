@@ -2,22 +2,11 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
 use ArgumentCountError;
-use Mockery;
-use NotificationChannels\Twitter\TwitterDirectMessage;
 use NotificationChannels\Twitter\TwitterMessage;
 
 class TwitterMessageTest extends TestCase
 {
-//    public function setUp(): void
-//    {
-//        parent::setUp();
-//        $this->twitter = Mockery::mock(TwitterOAuth::class);
-//        $this->messageWithUserId = new TwitterDirectMessage(1234, 'myMessage');
-//        $this->messageWithScreenName = new TwitterDirectMessage('receiver', 'myMessage');
-//    }
-
     /** @test */
     public function it_needs_a_content()
     {

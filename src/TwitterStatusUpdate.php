@@ -31,7 +31,6 @@ class TwitterStatusUpdate extends TwitterMessage
     /**
      * Set Twitter media files.
      *
-     * @param  array|string  $images
      * @return $this
      */
     public function withImage(array|string $images): static
@@ -47,8 +46,6 @@ class TwitterStatusUpdate extends TwitterMessage
 
     /**
      * Get Twitter images list.
-     *
-     * @return array|null
      */
     public function getImages(): ?array
     {

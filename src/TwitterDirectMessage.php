@@ -22,7 +22,6 @@ class TwitterDirectMessage extends TwitterMessage
     /**
      * Get Twitter direct message receiver.
      *
-     * @param  TwitterOAuth  $twitter
      * @return string|mixed
      *
      * @throws CouldNotSendNotification
@@ -48,9 +47,6 @@ class TwitterDirectMessage extends TwitterMessage
 
     /**
      * Build Twitter request body.
-     *
-     * @param  TwitterOAuth  $twitter
-     * @return array
      *
      * @throws CouldNotSendNotification
      */
