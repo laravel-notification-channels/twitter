@@ -4,17 +4,14 @@ namespace NotificationChannels\Twitter;
 
 class TwitterImage
 {
-    /** @var string */
-    private $imagePath;
-
     /**
      * TwitterImage constructor.
      *
      * @param $imagePath
      */
-    public function __construct($imagePath)
+    public function __construct(private string $imagePath)
     {
-        $this->imagePath = $imagePath;
+        //
     }
 
     /**
