@@ -8,11 +8,10 @@ use NotificationChannels\Twitter\TwitterStatusUpdate;
 
 class TwitterStatusUpdateTest extends TestCase
 {
-    /** @var TwitterStatusUpdate */
-    protected $message;
+    protected TwitterStatusUpdate $message;
 
     /** @test */
-    public function it_accepts_a_message_when_constructing_a_message()
+    public function it_accepts_a_message_when_constructing_a_message(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
 
@@ -20,7 +19,7 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
-    public function image_paths_parameter_is_optional()
+    public function image_paths_parameter_is_optional(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
 
@@ -28,7 +27,7 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_accepts_one_image_path()
+    public function it_accepts_one_image_path(): void
     {
         $message = (new TwitterStatusUpdate('myMessage'))->withImage('image1.png');
 
@@ -37,7 +36,7 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_accepts_array_of_image_paths()
+    public function it_accepts_array_of_image_paths(): void
     {
         $imagePaths = ['path1', 'path2'];
         $message = (new TwitterStatusUpdate('myMessage'))->withImage($imagePaths);
@@ -50,9 +49,9 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_constructs_a_request_body()
+    public function it_constructs_a_request_body(): void
     {
-        $message = new TwitterStatusUpdate('myMessage', ['path1', 'path2', 'path3']);
+        $message = new TwitterStatusUpdate('myMessage');
         $message->imageIds = collect([434, 435, 436]);
 
         $this->assertEquals($message->getRequestBody(), [
@@ -62,7 +61,7 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_status_update_is_too_long()
+    public function it_throws_an_exception_when_the_status_update_is_too_long(): void
     {
         $tooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior defined count.';
 
@@ -74,7 +73,7 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_provides_exceeded_message_count_when_the_status_update_is_too_long()
+    public function it_provides_exceeded_message_count_when_the_status_update_is_too_long(): void
     {
         $tooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior define count.';
 

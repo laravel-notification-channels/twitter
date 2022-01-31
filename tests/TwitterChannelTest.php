@@ -30,7 +30,8 @@ class TwitterChannelTest extends TestCase
     {
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!'], false);
+            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!'], false)
+            ->andReturn([]);
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
@@ -51,8 +52,12 @@ class TwitterChannelTest extends TestCase
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
-                false);
+            ->with(
+                'statuses/update',
+                ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
+                false
+            )
+            ->andReturn([]);
 
         $this->twitter->shouldReceive('upload')
             ->once()

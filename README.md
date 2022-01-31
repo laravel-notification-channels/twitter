@@ -71,10 +71,14 @@ To use this package, you need to create a notification class, like `NewsWasPubli
 
 ```php
 <?php
+
+use Illuminate\Notifications\Notification;
+use NotificationChannels\Twitter\Contracts\TwitterNotification;
 use NotificationChannels\Twitter\TwitterChannel;
+use NotificationChannels\Twitter\TwitterMessage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
-class NewsWasPublished extends Notification
+class NewsWasPublished extends Notification implements TwitterNotification
 {
 
     /**
@@ -88,7 +92,11 @@ class NewsWasPublished extends Notification
         return [TwitterChannel::class];
     }
 
-    public function toTwitter($notifiable)
+    /**
+     * @param  mixed $notifiable
+     * @return TwitterMessage
+     */
+    public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return new TwitterStatusUpdate('Laravel notifications are awesome!');
     }
@@ -97,8 +105,10 @@ class NewsWasPublished extends Notification
 
 Take a closer look at the `toTwitter` method. Here we define what kind of Twitter message we want to trigger. In this case, it is a status update message, which is just a new message in your timeline.
 
+It's recommended to also implement the `TwitterNotification` interface that requires the `toTwitter` method and also that it returns an instance of `TwitterMessage`.
+
 ````php
-public function toTwitter($notifiable)
+public function toTwitter(mixed $notifiable): TwitterMessage
 {
     return new TwitterStatusUpdate('Laravel notifications are awesome!');
 }
@@ -106,7 +116,7 @@ public function toTwitter($notifiable)
 ### Publish Twitter status update with images
 It is possible to publish images with your status update too. You have to pass the image path to the `withImage` method.
 ````php
-public function toTwitter($notifiable)
+public function toTwitter(mixed $notifiable): TwitterMessage
 {
     return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withImage('marcel.png');
 }
@@ -121,7 +131,7 @@ return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withImag
 ### Send a direct message
 To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter user handler as the first parameter and the the message as the second one.
 ````php
-public function toTwitter($notifiable)
+public function toTwitter(mixed $notifiable): TwitterMessage
 {
      return new TwitterDirectMessage('marcelpociot', 'Hey Marcel, it was nice meeting you at the Laracon.');
 }
@@ -130,7 +140,7 @@ public function toTwitter($notifiable)
 You can also provide the `user ID` instead of the `screen name`. This would prevent an extra Twitter API call. Make sure to pass it as an integer when you do.
 
 ````php
-public function toTwitter($notifiable)
+public function toTwitter(mixed $notifiable): TwitterMessage
 {
      return new TwitterDirectMessage(12345, 'Hey Marcel, it was nice meeting you at the Laracon.');
 }

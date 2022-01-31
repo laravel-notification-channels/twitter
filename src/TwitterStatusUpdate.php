@@ -6,36 +6,25 @@ use Illuminate\Support\Collection;
 use Kylewm\Brevity\Brevity;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 
-class TwitterStatusUpdate
+class TwitterStatusUpdate extends TwitterMessage
 {
-    /** @var string */
-    protected $content;
-
-    /** @var array */
-    private $images;
-
-    /** @var bool */
-    public $isJsonRequest = false;
-
-    /** @var Collection */
-    public $imageIds;
-
-    /** @var string */
-    private $apiEndpoint = 'statuses/update';
+    public ?Collection $imageIds = null;
+    private ?array $images = null;
 
     /**
-     * TwitterStatusUpdate constructor.
-     *
-     * @param $content
      * @throws CouldNotSendNotification
      */
-    public function __construct($content)
-    {
-        if ($exceededLength = $this->messageIsTooLong($content, new Brevity())) {
+    public function __construct(string $content) {
+        parent::__construct($content);
+
+        if ($exceededLength = $this->messageIsTooLong(new Brevity())) {
             throw CouldNotSendNotification::statusUpdateTooLong($exceededLength);
         }
+    }
 
-        $this->content = $content;
+    public function getApiEndpoint(): string
+    {
+        return 'statuses/update';
     }
 
     /**
@@ -44,8 +33,10 @@ class TwitterStatusUpdate
      * @param   array|string $images
      * @return  $this
      */
-    public function withImage($images)
+    public function withImage(array|string $images): static
     {
+        $images = is_array($images) ? $images : [$images];
+
         collect($images)->each(function ($image) {
             $this->images[] = new TwitterImage($image);
         });
@@ -54,47 +45,23 @@ class TwitterStatusUpdate
     }
 
     /**
-     * Get Twitter status update content.
-     *
-     * @return  string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
      * Get Twitter images list.
      *
-     * @return array
+     * @return array|null
      */
-    public function getImages()
+    public function getImages(): ?array
     {
         return $this->images;
     }
 
     /**
-     * Return Twitter status update api endpoint.
-     *
-     * @return  string
-     */
-    public function getApiEndpoint()
-    {
-        return $this->apiEndpoint;
-    }
-
-    /**
      * Build Twitter request body.
-     *
-     * @return  array
      */
-    public function getRequestBody()
+    public function getRequestBody(): array
     {
-        $body = [
-            'status' => $this->getContent(),
-        ];
+        $body = ['status' => $this->getContent(),];
 
-        if ($this->imageIds) {
+        if ($this->imageIds instanceof Collection) {
             $body['media_ids'] = $this->imageIds->implode(',');
         }
 
@@ -104,15 +71,13 @@ class TwitterStatusUpdate
     /**
      * Check if the message length is too long.
      *
-     * @param $content
-     * @param $brevity
-     * @return int
+     * @return int  How many characters the max length is exceeded or 0 when it isn't.
      */
-    private function messageIsTooLong($content, Brevity $brevity)
+    private function messageIsTooLong(Brevity $brevity): int
     {
-        $tweetLength = $brevity->tweetLength($content);
+        $tweetLength = $brevity->tweetLength($this->content);
         $exceededLength = $tweetLength - 280;
 
-        return $exceededLength > 0 ? $exceededLength : 0;
+        return max($exceededLength, 0);
     }
 }
