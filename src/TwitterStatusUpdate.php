@@ -41,8 +41,8 @@ class TwitterStatusUpdate
     /**
      * Set Twitter media files.
      *
-     * @param   array|string $images
-     * @return  $this
+     * @param  array|string $images
+     * @return $this
      */
     public function withImage($images)
     {
@@ -56,7 +56,7 @@ class TwitterStatusUpdate
     /**
      * Get Twitter status update content.
      *
-     * @return  string
+     * @return string
      */
     public function getContent()
     {
@@ -76,7 +76,7 @@ class TwitterStatusUpdate
     /**
      * Return Twitter status update api endpoint.
      *
-     * @return  string
+     * @return string
      */
     public function getApiEndpoint()
     {
@@ -86,7 +86,7 @@ class TwitterStatusUpdate
     /**
      * Build Twitter request body.
      *
-     * @return  array
+     * @return array
      */
     public function getRequestBody()
     {
@@ -104,8 +104,8 @@ class TwitterStatusUpdate
     /**
      * Check if the message length is too long.
      *
-     * @param string $content
-     * @param Brevity $brevity
+     * @param  string  $content
+     * @param  Brevity  $brevity
      * @return int
      */
     private function messageIsTooLong(string $content, Brevity $brevity)

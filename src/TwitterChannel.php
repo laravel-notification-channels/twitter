@@ -21,8 +21,8 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param mixed $notifiable
-     * @param Notification $notification
+     * @param  mixed  $notifiable
+     * @param  Notification  $notification
      * @return array|object
      * @throws CouldNotSendNotification
      */
@@ -46,7 +46,7 @@ class TwitterChannel
     /**
      * Use per user settings instead of default ones.
      *
-     * @param Notifiable $notifiable
+     * @param  Notifiable  $notifiable
      */
     private function changeTwitterSettingsIfNeeded($notifiable)
     {

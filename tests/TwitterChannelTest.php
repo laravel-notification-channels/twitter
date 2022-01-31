@@ -121,6 +121,7 @@ class TestNotification extends Notification
     /**
      * @param $notifiable
      * @return TwitterStatusUpdate
+     *
      * @throws CouldNotSendNotification
      */
     public function toTwitter($notifiable)
@@ -134,6 +135,7 @@ class TestNotificationWithImage extends Notification
     /**
      * @param $notifiable
      * @return TwitterStatusUpdate
+     *
      * @throws CouldNotSendNotification
      */
     public function toTwitter($notifiable)
