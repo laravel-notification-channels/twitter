@@ -54,7 +54,7 @@ class TwitterStatusUpdate extends TwitterMessage
     }
 
     /**
-     * @param int $statusId
+     * @param  int  $statusId
      * @return $this
      */
     public function inReplyTo(int $statusId): self

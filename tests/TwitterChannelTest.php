@@ -173,7 +173,7 @@ class TestNotificationWithReplyToStatusId extends Notification
     private int $replyToStatusId;
 
     /**
-     * @param int $replyToStatusId
+     * @param  int  $replyToStatusId
      */
     public function __construct(int $replyToStatusId)
     {
@@ -181,7 +181,7 @@ class TestNotificationWithReplyToStatusId extends Notification
     }
 
     /**
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return TwitterMessage
      */
     public function toTwitter(mixed $notifiable): TwitterMessage
