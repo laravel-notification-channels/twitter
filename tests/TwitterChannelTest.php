@@ -75,6 +75,26 @@ class TwitterChannelTest extends TestCase
     }
 
     /** @test */
+    public function it_can_send_a_status_update_notification_with_reply_to_status_id(): void
+    {
+        $postParams = [
+            'status' => 'Laravel Notification Channels are awesome!',
+            'in_reply_to_status_id' => $replyToStatusId = 123,
+        ];
+
+        $this->twitter->shouldReceive('post')
+            ->once()
+            ->with('statuses/update', $postParams, false)
+            ->andReturn([]);
+
+        $this->twitter->shouldReceive('getLastHttpCode')
+            ->once()
+            ->andReturn(200);
+
+        $this->channel->send(new TestNotifiable(), new TestNotificationWithReplyToStatusId($replyToStatusId));
+    }
+
+    /** @test */
     public function it_throws_an_exception_when_it_could_not_send_the_notification()
     {
         $messageObject = new stdClass;
@@ -145,5 +165,28 @@ class TestNotificationWithImage extends Notification
     public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))->withImage(public_path('image.png'));
+    }
+}
+
+class TestNotificationWithReplyToStatusId extends Notification
+{
+    private int $replyToStatusId;
+
+    /**
+     * @param int $replyToStatusId
+     */
+    public function __construct(int $replyToStatusId)
+    {
+        $this->replyToStatusId = $replyToStatusId;
+    }
+
+    /**
+     * @param mixed $notifiable
+     * @return TwitterMessage
+     */
+    public function toTwitter(mixed $notifiable): TwitterMessage
+    {
+        return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))
+            ->inReplyTo($this->replyToStatusId);
     }
 }

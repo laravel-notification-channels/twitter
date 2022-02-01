@@ -93,4 +93,22 @@ class TwitterStatusUpdateTest extends TestCase
                 $e->getMessage());
         }
     }
+
+    /** @test */
+    public function it_has_in_reply_to_status_id_as_optional_parameter(): void
+    {
+        $message = new TwitterStatusUpdate('Hello world!');
+
+        $this->assertEquals(null, $message->getInReplyToStatusId());
+    }
+
+    /** @test */
+    public function it_accepts_in_reply_to_status_id(): void
+    {
+        $message = (new TwitterStatusUpdate($content = 'Foo!'))
+            ->inReplyTo($inReplyToStatusId = 12345);
+
+        $this->assertEquals($content, $message->getContent());
+        $this->assertEquals($inReplyToStatusId, $message->getInReplyToStatusId());
+    }
 }

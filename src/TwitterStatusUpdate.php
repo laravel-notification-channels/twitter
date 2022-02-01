@@ -10,6 +10,7 @@ class TwitterStatusUpdate extends TwitterMessage
 {
     public ?Collection $imageIds = null;
     private ?array $images = null;
+    private ?int $inReplyToStatusId = null;
 
     /**
      * @throws CouldNotSendNotification
@@ -53,6 +54,25 @@ class TwitterStatusUpdate extends TwitterMessage
     }
 
     /**
+     * @param int $statusId
+     * @return $this
+     */
+    public function inReplyTo(int $statusId): self
+    {
+        $this->inReplyToStatusId = $statusId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getInReplyToStatusId(): ?int
+    {
+        return $this->inReplyToStatusId;
+    }
+
+    /**
      * Build Twitter request body.
      */
     public function getRequestBody(): array
@@ -61,6 +81,10 @@ class TwitterStatusUpdate extends TwitterMessage
 
         if ($this->imageIds instanceof Collection) {
             $body['media_ids'] = $this->imageIds->implode(',');
+        }
+
+        if ($this->inReplyToStatusId) {
+            $body['in_reply_to_status_id'] = $this->inReplyToStatusId;
         }
 
         return $body;
