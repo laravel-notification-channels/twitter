@@ -5,7 +5,7 @@ namespace NotificationChannels\Twitter\Test;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
-use Mockery;
+use Mockery as m;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterMessage;
@@ -24,7 +24,7 @@ class TwitterChannelTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->twitter = Mockery::mock(TwitterOAuth::class);
+        $this->twitter = m::mock(TwitterOAuth::class);
         $this->channel = new TwitterChannel($this->twitter);
     }
 

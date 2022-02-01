@@ -2,7 +2,7 @@
 
 namespace NotificationChannels\Twitter\Test;
 
-use Mockery;
+use Mockery as m;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -10,10 +10,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::tearDown();
 
-        if ($container = Mockery::getContainer()) {
+        if ($container = m::getContainer()) {
             $this->addToAssertionCount($container->mockery_getExpectationCount());
         }
 
-        Mockery::close();
+        m::close();
     }
 }
