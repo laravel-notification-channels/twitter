@@ -13,16 +13,15 @@
     ],
     "require": {
         "php": "^8.0",
-        "abraham/twitteroauth": "^4.0.0",
-        "illuminate/notifications": "^8.0|^9.0",
-        "illuminate/support": "^8.0|^9.0",
-        "kylewm/brevity": "^0.2.9"
+        "abraham/twitteroauth": "^4.0.0|^5.0",
+        "illuminate/notifications": "^8.0|^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0",
+        "kylewm/brevity": "^0.2.9|^0.2"
     },
-
     "require-dev": {
         "mockery/mockery": "^1.3.1",
         "phpunit/phpunit": "^9.3",
-        "orchestra/testbench": "^7.0"
+        "orchestra/testbench": "^7.0|^8.0"
     },
     "autoload": {
         "psr-4": {
