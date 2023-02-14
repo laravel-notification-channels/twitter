@@ -9,7 +9,7 @@
 
 This package makes it easy to send Laravel notifications using [Twitter](https://dev.twitter.com/rest/public). (Laravel 8+)
 
-PS: v.7.0.0 only supports Laravel 10 and PHP 8.1 If you have an older Laravel application, or PHP version, you can use an older version of this package. But be aware that these are no longer maintained.
+PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel application, or PHP version, you can use an older version of this package. But be aware that these are no longer maintained.
 
 ## Contents
 
