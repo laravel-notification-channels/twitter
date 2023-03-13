@@ -25,6 +25,7 @@ class TwitterChannel
 
         $twitterMessage = $notification->toTwitter($notifiable);
         $twitterMessage = $this->addImagesIfGiven($twitterMessage);
+        $twitterMessage = $this->addVideosIfGiven($twitterMessage);
 
         $twitterApiResponse = $this->twitter->post(
             $twitterMessage->getApiEndpoint(),
@@ -71,6 +72,45 @@ class TwitterChannel
                 $media = $this->twitter->upload('media/upload', ['media' => $image->getPath()]);
 
                 return $media->media_id_string;
+            });
+        }
+
+        return $twitterMessage;
+    }
+
+    /**
+     * If it is a status update message and videos are provided, add them.
+     */
+    private function addVideosIfGiven(TwitterMessage $twitterMessage): object
+    {
+        if (is_a($twitterMessage, TwitterStatusUpdate::class) && $twitterMessage->getVideos()) {
+            $this->twitter->setTimeouts(10, 15);
+
+            $twitterMessage->videoIds = collect($twitterMessage->getVideos())->map(function (TwitterVideo $video) {
+                $media = $this->twitter->upload('media/upload', [
+                    'media' => $video->getPath(),
+                    'media_category' => 'tweet_video',
+                    'media_type' => $video->getMimeType(),
+                ], true);
+
+                $status = $this->twitter->mediaStatus($media->media_id_string);
+
+                $safety = 30; // We don't want to wait forever, stop after 30 checks.
+                while (($status->processing_info->state == 'pending' || $status->processing_info->state == 'in_progress') && $safety > 0) {
+                    if (isset($status->processing_info->error)) {
+                        break;
+                    }
+
+                    sleep($status->processing_info->check_after_secs);
+                    $status = $this->twitter->mediaStatus($media->media_id_string);
+                    $safety = $safety - 1;
+                }
+
+                if (isset($status->processing_info->error)) {
+                    throw CouldNotSendNotification::videoCouldNotBeProcessed($status->processing_info->error->message);
+                }
+
+                return $status->media_id_string;
             });
         }
 

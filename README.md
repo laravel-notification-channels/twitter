@@ -19,6 +19,8 @@ PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel a
 - [Usage](#usage)
     - [Publish a Twitter status update](#publish-a-twitter-status-update)
     - [Publish Twitter status update with images](#publish-twitter-status-update-with-images)
+    - [Publish Twitter status update with videos](#publish-twitter-status-update-with-videos)
+    - [Publish Twitter status update with both images and videos](#publish-twitter-status-update-with-both-images-and-videos)
    - [Send a direct message](#send-a-direct-message)
 - [Handle multiple Twitter Accounts](#handle-multiple-twitter-accounts)
 - [Changelog](#changelog)
@@ -116,6 +118,32 @@ public function toTwitter(mixed $notifiable): TwitterMessage
 If you want to use multiple images, just pass an array of paths.
 ````php
 return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withImage([
+    public_path('marcel.png'),
+    public_path('mohamed.png')
+]);
+````
+### Publish Twitter status update with videos
+It is possible to publish videos with your status update too. You have to pass the video path to the `withVideo` method.
+````php
+public function toTwitter(mixed $notifiable): TwitterMessage
+{
+    return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withVideo('video.mp4');
+}
+````
+If you want to use multiple videos, just pass an array of paths.
+````php
+return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withVideo([
+    public_path('video1.mp4'),
+    public_path('video.gif')
+]);
+````
+### Publish Twitter status update with both images and videos
+It is also possible to publish both images and videos with your status by using a mixture of the two methods.
+````php
+return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withVideo([
+    public_path('video1.mp4'),
+    public_path('video.gif')
+])->withImage([
     public_path('marcel.png'),
     public_path('mohamed.png')
 ]);

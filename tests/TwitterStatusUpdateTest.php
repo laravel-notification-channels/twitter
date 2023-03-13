@@ -5,6 +5,7 @@ namespace NotificationChannels\Twitter\Test;
 use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Twitter\TwitterImage;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
+use NotificationChannels\Twitter\TwitterVideo;
 
 class TwitterStatusUpdateTest extends TestCase
 {
@@ -49,14 +50,45 @@ class TwitterStatusUpdateTest extends TestCase
     }
 
     /** @test */
+    public function video_paths_parameter_is_optional(): void
+    {
+        $message = new TwitterStatusUpdate('myMessage');
+
+        $this->assertEquals(null, $message->getVideos());
+    }
+
+    /** @test */
+    public function it_accepts_one_video_path(): void
+    {
+        $message = (new TwitterStatusUpdate('myMessage'))->withVideo('video.mp4');
+
+        $this->assertEquals('myMessage', $message->getContent());
+        $this->assertEquals([new TwitterVideo('video.mp4')], $message->getVideos());
+    }
+
+    /** @test */
+    public function it_accepts_array_of_video_paths(): void
+    {
+        $videoPaths = ['path1', 'path2'];
+        $message = (new TwitterStatusUpdate('myMessage'))->withVideo($videoPaths);
+        $videoPathsObjects = collect($videoPaths)->map(function ($video) {
+            return new TwitterVideo($video);
+        })->toArray();
+
+        $this->assertEquals('myMessage', $message->getContent());
+        $this->assertEquals($videoPathsObjects, $message->getVideos());
+    }
+
+    /** @test */
     public function it_constructs_a_request_body(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
         $message->imageIds = collect([434, 435, 436]);
+        $message->videoIds = collect([534, 535, 536]);
 
         $this->assertEquals([
             'status'    => 'myMessage',
-            'media_ids' => '434,435,436',
+            'media_ids' => '434,435,436,534,535,536',
         ], $message->getRequestBody());
     }
 

@@ -16,7 +16,8 @@
         "abraham/twitteroauth": "^5.0",
         "illuminate/notifications": "^10.0",
         "illuminate/support": "^10.0",
-        "kylewm/brevity": "^0.2"
+        "kylewm/brevity": "^0.2",
+        "ext-fileinfo": "*"
     },
     "require-dev": {
         "mockery/mockery": "^1.3.1",
