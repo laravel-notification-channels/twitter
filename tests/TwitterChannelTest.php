@@ -75,6 +75,51 @@ class TwitterChannelTest extends TestCase
     }
 
     /** @test */
+    public function it_can_send_a_status_update_notification_with_videos()
+    {
+        $media = new stdClass;
+        $media->media_id_string = '2';
+
+        $status = new stdClass;
+        $status->media_id_string = '2';
+        $status->processing_info = new stdClass;
+        $status->processing_info->state = "completed";
+
+        $this->twitter->shouldReceive('setTimeouts')
+            ->once()
+            ->with(10, 15);
+
+        $this->twitter->shouldReceive('post')
+            ->once()
+            ->with(
+                'statuses/update',
+                ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
+                false
+            )
+            ->andReturn([]);
+
+        $this->twitter->shouldReceive('upload')
+            ->once()
+            ->with('media/upload', [
+                'media' => public_path('video.mp4'),
+                'media_category' => "tweet_video",
+                'media_type' => "video/mp4"
+            ], true)
+            ->andReturn($media);
+
+        $this->twitter->shouldReceive('mediaStatus')
+            ->once()
+            ->with($media->media_id_string)
+            ->andReturn($status);
+
+        $this->twitter->shouldReceive('getLastHttpCode')
+            ->once()
+            ->andReturn(200);
+
+        $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
+    }
+
+    /** @test */
     public function it_can_send_a_status_update_notification_with_reply_to_status_id(): void
     {
         $postParams = [
@@ -117,6 +162,42 @@ class TwitterChannelTest extends TestCase
         $this->expectException(CouldNotSendNotification::class);
 
         $this->channel->send(new TestNotifiable(), new TestNotification());
+    }
+
+    /** @test */
+    public function it_throws_an_exception_when_it_could_not_send_the_notification_with_videos()
+    {
+        $media = new stdClass;
+        $media->media_id_string = '2';
+
+        $status = new stdClass;
+        $status->media_id_string = '2';
+        $status->processing_info = new stdClass;
+        $status->processing_info->state = "failed";
+        $status->processing_info->error = new stdClass;
+        $status->processing_info->error->message = "invalid media";
+
+        $this->twitter->shouldReceive('setTimeouts')
+            ->once()
+            ->with(10, 15);
+
+        $this->twitter->shouldReceive('upload')
+            ->once()
+            ->with('media/upload', [
+                'media' => public_path('video.mp4'),
+                'media_category' => "tweet_video",
+                'media_type' => "video/mp4"
+            ], true)
+            ->andReturn($media);
+
+        $this->twitter->shouldReceive('mediaStatus')
+            ->once()
+            ->with($media->media_id_string)
+            ->andReturn($status);
+
+        $this->expectException(CouldNotSendNotification::class);
+
+        $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
     }
 }
 
@@ -165,6 +246,17 @@ class TestNotificationWithImage extends Notification
     public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))->withImage(public_path('image.png'));
+    }
+}
+
+class TestNotificationWithVideo extends Notification
+{
+    /**
+     * @throws CouldNotSendNotification
+     */
+    public function toTwitter(mixed $notifiable): TwitterMessage
+    {
+        return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))->withVideo(public_path('video.mp4'));
     }
 }
 

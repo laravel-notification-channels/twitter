@@ -30,4 +30,11 @@ class CouldNotSendNotification extends Exception
             "Couldn't post notification, because the status message was too long by ${exceededLength} character(s)."
         );
     }
+
+    public static function videoCouldNotBeProcessed(string $message): CouldNotSendNotification
+    {
+        return new static(
+            "Couldn't post notification, Video upload failed: ".$message
+        );
+    }
 }
