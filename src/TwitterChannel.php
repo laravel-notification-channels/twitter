@@ -90,14 +90,14 @@ class TwitterChannel
 
                 $media = $this->twitter->upload('media/upload', [
                     'media' => $video->getPath(),
-                    'media_category' => "tweet_video",
-                    'media_type' => $video->getMimeType()
+                    'media_category' => 'tweet_video',
+                    'media_type' => $video->getMimeType(),
                 ], true);
 
                 $status = $this->twitter->mediaStatus($media->media_id_string);
 
                 $safety = 30; // We don't want to wait forever, stop after 30 checks.
-                while (($status->processing_info->state == "pending" || $status->processing_info->state == "in_progress") && $safety > 0) {
+                while (($status->processing_info->state == 'pending' || $status->processing_info->state == 'in_progress') && $safety > 0) {
                     if (isset($status->processing_info->error)) {
                         break;
                     }

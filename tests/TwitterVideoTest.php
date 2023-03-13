@@ -18,6 +18,6 @@ class TwitterVideoTest extends TestCase
     {
         $video = new TwitterVideo('/foo/bar/baz.mp4');
         $this->assertEquals('/foo/bar/baz.mp4', $video->getPath());
-        $this->assertEquals("video/mp4", $video->getMimeType());
+        $this->assertEquals('video/mp4', $video->getMimeType());
     }
 }

@@ -83,7 +83,7 @@ class TwitterChannelTest extends TestCase
         $status = new stdClass;
         $status->media_id_string = '2';
         $status->processing_info = new stdClass;
-        $status->processing_info->state = "completed";
+        $status->processing_info->state = 'completed';
 
         $this->twitter->shouldReceive('setTimeouts')
             ->once()
@@ -102,8 +102,8 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with('media/upload', [
                 'media' => public_path('video.mp4'),
-                'media_category' => "tweet_video",
-                'media_type' => "video/mp4"
+                'media_category' => 'tweet_video',
+                'media_type' => 'video/mp4',
             ], true)
             ->andReturn($media);
 
@@ -173,9 +173,9 @@ class TwitterChannelTest extends TestCase
         $status = new stdClass;
         $status->media_id_string = '2';
         $status->processing_info = new stdClass;
-        $status->processing_info->state = "failed";
+        $status->processing_info->state = 'failed';
         $status->processing_info->error = new stdClass;
-        $status->processing_info->error->message = "invalid media";
+        $status->processing_info->error->message = 'invalid media';
 
         $this->twitter->shouldReceive('setTimeouts')
             ->once()
@@ -185,8 +185,8 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with('media/upload', [
                 'media' => public_path('video.mp4'),
-                'media_category' => "tweet_video",
-                'media_type' => "video/mp4"
+                'media_category' => 'tweet_video',
+                'media_type' => 'video/mp4',
             ], true)
             ->andReturn($media);
 

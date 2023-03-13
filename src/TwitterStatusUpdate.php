@@ -111,7 +111,7 @@ class TwitterStatusUpdate extends TwitterMessage
             ->filter()
             ->values();
 
-        if($mediaIds->count() > 0) {
+        if ($mediaIds->count() > 0) {
             $body['media_ids'] = $mediaIds->implode(',');
         }
 
