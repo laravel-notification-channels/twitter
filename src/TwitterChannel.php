@@ -87,7 +87,6 @@ class TwitterChannel
             $this->twitter->setTimeouts(10, 15);
 
             $twitterMessage->videoIds = collect($twitterMessage->getVideos())->map(function (TwitterVideo $video) {
-
                 $media = $this->twitter->upload('media/upload', [
                     'media' => $video->getPath(),
                     'media_category' => 'tweet_video',
