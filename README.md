@@ -1,3 +1,6 @@
+<img width="1473" alt="image" src="https://user-images.githubusercontent.com/1394539/224646721-20af92f0-2a46-45c0-9700-cfdbe9edf76c.png">
+
+
 # Twitter notification channel for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/twitter.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/twitter)
