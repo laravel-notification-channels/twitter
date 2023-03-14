@@ -25,11 +25,14 @@ class TwitterChannel
 
         $twitterMessage = $notification->toTwitter($notifiable);
         $twitterMessage = $this->addImagesIfGiven($twitterMessage);
-        $twitterMessage = $this->addVideosIfGiven($twitterMessage);
-
+        if($twitterMessage instanceof TwitterDirectMessage){
+            $requestBody =  $twitterMessage->getRequestBody($this->twitter);
+        }else{
+            $requestBody =  $twitterMessage->getRequestBody();
+        }
         $twitterApiResponse = $this->twitter->post(
             $twitterMessage->getApiEndpoint(),
-            $twitterMessage->getRequestBody(),
+            $requestBody,
             $twitterMessage->isJsonRequest,
         );
 
