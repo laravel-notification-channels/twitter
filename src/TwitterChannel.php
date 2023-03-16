@@ -15,7 +15,7 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param  mixed  $notifiable  Should be an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param mixed $notifiable Should be an object that uses the Illuminate\Notifications\Notifiable trait.
      *
      * @throws CouldNotSendNotification
      */
@@ -26,10 +26,11 @@ class TwitterChannel
         $twitterMessage = $notification->toTwitter($notifiable);
         $twitterMessage = $this->addImagesIfGiven($twitterMessage);
         $twitterMessage = $this->addVideosIfGiven($twitterMessage);
-        if($twitterMessage instanceof TwitterDirectMessage){
-            $requestBody =  $twitterMessage->getRequestBody($this->twitter);
-        }else{
-            $requestBody =  $twitterMessage->getRequestBody();
+
+        if ($twitterMessage instanceof TwitterDirectMessage) {
+            $requestBody = $twitterMessage->getRequestBody($this->twitter);
+        } else {
+            $requestBody = $twitterMessage->getRequestBody();
         }
         $twitterApiResponse = $this->twitter->post(
             $twitterMessage->getApiEndpoint(),
@@ -47,7 +48,7 @@ class TwitterChannel
     /**
      * Use per user settings instead of default ones.
      *
-     * @param  object  $notifiable  Provide an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param object $notifiable Provide an object that uses the Illuminate\Notifications\Notifiable trait.
      */
     private function changeTwitterSettingsIfNeeded(object $notifiable)
     {
