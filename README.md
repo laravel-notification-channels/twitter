@@ -12,7 +12,7 @@
 
 This package makes it easy to send Laravel notifications using [Twitter](https://dev.twitter.com/rest/public). (Laravel 8+)
 
-PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel application, or PHP version, you can use an older version of this package. But be aware that these are no longer maintained.
+PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel application or PHP version, you can use an older version of this package. Be aware that these are no longer maintained.
 
 ## Contents
 
@@ -66,7 +66,7 @@ You will need to [create](https://developer.twitter.com/apps/) a Twitter app to 
 ...
 ```
 
-This will load the Twitter app data from the `.env` file. Make sure to use the same keys you have used there like `TWITTER_CONSUMER_KEY`.
+This will load the Twitter app data from the `.env` file. Make sure to use the same keys you have used like `TWITTER_CONSUMER_KEY`.
 
 ## Usage
 
@@ -102,7 +102,7 @@ class NewsWasPublished extends Notification
 }
 ```
 
-Take a closer look at the `toTwitter` method. Here we define what kind of Twitter message we want to trigger. In this case, it is a status update message, which is just a new message in your timeline.
+Take a closer look at the `toTwitter` method. Here, we define what kind of Twitter message we want to trigger. In this case, it is a status update message, which is just a new message in your timeline.
 
 ````php
 public function toTwitter(mixed $notifiable): TwitterMessage
@@ -151,15 +151,15 @@ return (new TwitterStatusUpdate('Laravel notifications are awesome!'))->withVide
     public_path('mohamed.png')
 ]);
 ````
-### Publish Twitter status update in reply to another tweet
-Additionally, you can publish a status update in reply to another tweet. That is possible using the method `inReplyTo`.
+### Publish a Twitter status update in reply to another tweet
+Additionally, you can publish a status update in reply to another tweet. This is possible by using the `inReplyTo` method.
 ````php
 public function toTwitter(mixed $notifiable): TwitterMessage
 {
     return (new TwitterStatusUpdate('@christophrumpel Laravel notifications are awesome!'))->inReplyTo(123);
 }
 ````
-> Note that the reply status id will be ignored if you omit the author of the original tweet, according to Twitter docs.
+> Note that the reply status ID will be ignored if you omit the author of the original tweet, according to Twitter docs.
 ### Send a direct message
 To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter user handler as the first parameter and the message as the second one.
 ````php
