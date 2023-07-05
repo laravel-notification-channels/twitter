@@ -27,7 +27,7 @@ class CouldNotSendNotification extends Exception
     public static function statusUpdateTooLong(int $exceededLength): CouldNotSendNotification
     {
         return new static(
-            "Couldn't post notification, because the status message was too long by ${exceededLength} character(s)."
+            "Couldn't post notification, because the status message was too long by $exceededLength character(s)."
         );
     }
 

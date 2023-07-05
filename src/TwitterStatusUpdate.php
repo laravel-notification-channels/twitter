@@ -12,7 +12,7 @@ class TwitterStatusUpdate extends TwitterMessage
     public ?Collection $videoIds = null;
     private ?array $images = null;
     private ?array $videos = null;
-    private ?int $inReplyToStatusId = null;
+    private ?int $inReplyToTweetId = null;
 
     /**
      * @throws CouldNotSendNotification
@@ -28,7 +28,7 @@ class TwitterStatusUpdate extends TwitterMessage
 
     public function getApiEndpoint(): string
     {
-        return 'statuses/update';
+        return 'tweets';
     }
 
     /**
@@ -83,9 +83,9 @@ class TwitterStatusUpdate extends TwitterMessage
      * @param  int  $statusId
      * @return $this
      */
-    public function inReplyTo(int $statusId): self
+    public function inReplyTo(int $tweetId): self
     {
-        $this->inReplyToStatusId = $statusId;
+        $this->inReplyToTweetId = $tweetId;
 
         return $this;
     }
@@ -93,9 +93,9 @@ class TwitterStatusUpdate extends TwitterMessage
     /**
      * @return int|null
      */
-    public function getInReplyToStatusId(): ?int
+    public function getInReplyToTweetId(): ?int
     {
-        return $this->inReplyToStatusId;
+        return $this->inReplyToTweetId;
     }
 
     /**
@@ -103,20 +103,19 @@ class TwitterStatusUpdate extends TwitterMessage
      */
     public function getRequestBody(): array
     {
-        $body = ['status' => $this->getContent()];
+        $body = ['text' => $this->getContent()];
 
         $mediaIds = collect()
             ->merge($this->imageIds instanceof Collection ? $this->imageIds : [])
             ->merge($this->videoIds instanceof Collection ? $this->videoIds : [])
-            ->filter()
             ->values();
 
         if ($mediaIds->count() > 0) {
             $body['media_ids'] = $mediaIds->implode(',');
         }
 
-        if ($this->inReplyToStatusId) {
-            $body['in_reply_to_status_id'] = $this->inReplyToStatusId;
+        if ($this->inReplyToTweetId) {
+            $body['in_reply_to_tweet_id'] = $this->inReplyToTweetId;
         }
 
         return $body;

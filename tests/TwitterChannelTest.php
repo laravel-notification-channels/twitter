@@ -24,7 +24,11 @@ class TwitterChannelTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->twitter = m::mock(TwitterOAuth::class);
+        $this->twitter = m::mock(TwitterOAuth::class, function ($mock) {
+            $mock->shouldReceive('setApiVersion')
+                ->with('2')
+                ->once();
+        });
         $this->channel = new TwitterChannel($this->twitter);
     }
 
