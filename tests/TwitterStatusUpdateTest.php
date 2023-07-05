@@ -87,7 +87,7 @@ class TwitterStatusUpdateTest extends TestCase
         $message->videoIds = collect([534, 535, 536]);
 
         $this->assertEquals([
-            'status'    => 'myMessage',
+            'text'    => 'myMessage',
             'media_ids' => '434,435,436,534,535,536',
         ], $message->getRequestBody());
     }
@@ -131,7 +131,7 @@ class TwitterStatusUpdateTest extends TestCase
     {
         $message = new TwitterStatusUpdate('Hello world!');
 
-        $this->assertEquals(null, $message->getInReplyToStatusId());
+        $this->assertEquals(null, $message->getInReplyToTweetId());
     }
 
     /** @test */
@@ -141,6 +141,6 @@ class TwitterStatusUpdateTest extends TestCase
             ->inReplyTo($inReplyToStatusId = 12345);
 
         $this->assertEquals($content, $message->getContent());
-        $this->assertEquals($inReplyToStatusId, $message->getInReplyToStatusId());
+        $this->assertEquals($inReplyToStatusId, $message->getInReplyToTweetId());
     }
 }

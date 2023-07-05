@@ -26,8 +26,7 @@ class TwitterChannelTest extends TestCase
         parent::setUp();
         $this->twitter = m::mock(TwitterOAuth::class, function ($mock) {
             $mock->shouldReceive('setApiVersion')
-                ->with('2')
-                ->once();
+                ->with('2');
         });
         $this->channel = new TwitterChannel($this->twitter);
     }
@@ -37,7 +36,7 @@ class TwitterChannelTest extends TestCase
     {
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!'], false)
+            ->with('tweets', ['text' => 'Laravel Notification Channels are awesome!'], false)
             ->andReturn([]);
 
         $this->twitter->shouldReceive('getLastHttpCode')
@@ -60,8 +59,8 @@ class TwitterChannelTest extends TestCase
         $this->twitter->shouldReceive('post')
             ->once()
             ->with(
-                'statuses/update',
-                ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
+                'tweets',
+                ['text' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
                 false
             )
             ->andReturn([]);
@@ -96,8 +95,8 @@ class TwitterChannelTest extends TestCase
         $this->twitter->shouldReceive('post')
             ->once()
             ->with(
-                'statuses/update',
-                ['status' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
+                'tweets',
+                ['text' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
                 false
             )
             ->andReturn([]);
@@ -127,13 +126,13 @@ class TwitterChannelTest extends TestCase
     public function it_can_send_a_status_update_notification_with_reply_to_status_id(): void
     {
         $postParams = [
-            'status' => 'Laravel Notification Channels are awesome!',
-            'in_reply_to_status_id' => $replyToStatusId = 123,
+            'text' => 'Laravel Notification Channels are awesome!',
+            'in_reply_to_tweet_id' => $replyToStatusId = 123,
         ];
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', $postParams, false)
+            ->with('tweets', $postParams, false)
             ->andReturn([]);
 
         $this->twitter->shouldReceive('getLastHttpCode')
@@ -153,7 +152,7 @@ class TwitterChannelTest extends TestCase
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('statuses/update', ['status' => 'Laravel Notification Channels are awesome!'], false);
+            ->with('tweets', ['text' => 'Laravel Notification Channels are awesome!'], false);
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
