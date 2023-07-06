@@ -11,7 +11,7 @@ class CouldNotSendNotification extends Exception
         if (isset($response->error)) {
             return new static("Couldn't post notification. Response: ".$response->error);
         }
-
+       
         $responseBody = print_r($response->errors[0]->message, true);
 
         return new static("Couldn't post notification. Response: ".$responseBody);

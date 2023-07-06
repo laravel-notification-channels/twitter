@@ -22,7 +22,7 @@ class TwitterServiceProvider extends ServiceProvider
                     config('services.twitter.access_secret')
                 );
                 $connection->setApiVersion('2');
-                
+       
                 return $connection;
             });
     }

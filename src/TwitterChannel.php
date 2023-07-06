@@ -37,11 +37,12 @@ class TwitterChannel
             $requestBody,
             $twitterMessage->isJsonRequest,
         );
-
-        if ($this->twitter->getLastHttpCode() !== 200) {
+      
+        if ($this->twitter->getLastHttpCode() !== 201) {
             throw CouldNotSendNotification::serviceRespondsNotSuccessful($this->twitter->getLastBody());
         }
 
+        dd($twitterApiResponse);
         return $twitterApiResponse;
     }
 
