@@ -88,7 +88,9 @@ class TwitterStatusUpdateTest extends TestCase
 
         $this->assertEquals([
             'text'    => 'myMessage',
-            'media_ids' => '434,435,436,534,535,536',
+            'media' => [
+                'media_ids' => [434,435,436,534,535,536]
+            ]
         ], $message->getRequestBody());
     }
 

@@ -36,17 +36,17 @@ class TwitterMessageTest extends TestCase
     }
 
     /** @test */
-    public function it_has_an_is_json_request_property_with_default_value_false()
+    public function it_has_an_is_json_request_property_with_default_value_true()
     {
         $message = new class('Foo content') extends TwitterMessage
         {
             public function getApiEndpoint(): string
             {
-                return 'status/update';
+                return 'tweets';
             }
         };
 
         $this->assertObjectHasAttribute('isJsonRequest', $message);
-        $this->assertFalse($message->isJsonRequest);
+        $this->assertTrue($message->isJsonRequest);
     }
 }

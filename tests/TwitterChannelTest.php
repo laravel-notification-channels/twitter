@@ -36,13 +36,13 @@ class TwitterChannelTest extends TestCase
     {
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('tweets', ['text' => 'Laravel Notification Channels are awesome!'], false)
+            ->with('tweets', ['text' => 'Laravel Notification Channels are awesome!'], true)
             ->andReturn([]);
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
-            ->andReturn(200);
-
+            ->andReturn(201);
+        
         $this->channel->send(new TestNotifiable(), new TestNotification());
     }
 
@@ -60,8 +60,8 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with(
                 'tweets',
-                ['text' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
-                false
+                ['text' => 'Laravel Notification Channels are awesome!', 'media' => [ 'media_ids' => [2]]],
+                true
             )
             ->andReturn([]);
 
@@ -72,7 +72,7 @@ class TwitterChannelTest extends TestCase
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
-            ->andReturn(200);
+            ->andReturn(201);
 
         $this->channel->send(new TestNotifiable(), new TestNotificationWithImage());
     }
@@ -96,8 +96,8 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with(
                 'tweets',
-                ['text' => 'Laravel Notification Channels are awesome!', 'media_ids' => '2'],
-                false
+                ['text' => 'Laravel Notification Channels are awesome!', 'media' => [ 'media_ids' => [2]]],
+                true
             )
             ->andReturn([]);
 
@@ -117,13 +117,13 @@ class TwitterChannelTest extends TestCase
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
-            ->andReturn(200);
+            ->andReturn(201);
 
         $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
     }
 
     /** @test */
-    public function it_can_send_a_status_update_notification_with_reply_to_status_id(): void
+    public function it_can_send_a_status_update_notification_with_reply_to_tweet_id(): void
     {
         $postParams = [
             'text' => 'Laravel Notification Channels are awesome!',
@@ -132,12 +132,12 @@ class TwitterChannelTest extends TestCase
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('tweets', $postParams, false)
+            ->with('tweets', $postParams, true)
             ->andReturn([]);
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
-            ->andReturn(200);
+            ->andReturn(201);
 
         $this->channel->send(new TestNotifiable(), new TestNotificationWithReplyToStatusId($replyToStatusId));
     }
@@ -145,14 +145,12 @@ class TwitterChannelTest extends TestCase
     /** @test */
     public function it_throws_an_exception_when_it_could_not_send_the_notification()
     {
-        $messageObject = new stdClass;
-        $messageObject->message = 'Error message';
         $twitterResponse = new stdClass;
-        $twitterResponse->errors[] = $messageObject;
+        $twitterResponse->detail = 'Error Message';
 
         $this->twitter->shouldReceive('post')
             ->once()
-            ->with('tweets', ['text' => 'Laravel Notification Channels are awesome!'], false);
+            ->with('tweets', ['text' => 'Laravel Notification Channels are awesome!'], true);
 
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
@@ -197,7 +195,7 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with($media->media_id_string)
             ->andReturn($status);
-
+ 
         $this->expectException(CouldNotSendNotification::class);
 
         $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
