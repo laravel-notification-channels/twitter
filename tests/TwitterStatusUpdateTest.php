@@ -87,10 +87,10 @@ class TwitterStatusUpdateTest extends TestCase
         $message->videoIds = collect([534, 535, 536]);
 
         $this->assertEquals([
-            'text'    => 'myMessage',
+            'text' => 'myMessage',
             'media' => [
-                'media_ids' => [434,435,436,534,535,536]
-            ]
+                'media_ids' => [434, 435, 436, 534, 535, 536],
+            ],
         ], $message->getRequestBody());
     }
 

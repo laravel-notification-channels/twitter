@@ -9,7 +9,9 @@ use NotificationChannels\Twitter\TwitterDirectMessage;
 class TwitterDirectMessageTest extends TestCase
 {
     protected TwitterDirectMessage $messageWithUserId;
+
     protected TwitterDirectMessage $messageWithScreenName;
+
     protected TwitterOAuth $twitter;
 
     public function setUp(): void

@@ -9,9 +9,13 @@ use NotificationChannels\Twitter\Exceptions\CouldNotSendNotification;
 class TwitterStatusUpdate extends TwitterMessage
 {
     public ?Collection $imageIds = null;
+
     public ?Collection $videoIds = null;
+
     private ?array $images = null;
+
     private ?array $videos = null;
+
     private ?int $inReplyToTweetId = null;
 
     /**
@@ -90,9 +94,6 @@ class TwitterStatusUpdate extends TwitterMessage
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getInReplyToTweetId(): ?int
     {
         return $this->inReplyToTweetId;
@@ -112,7 +113,7 @@ class TwitterStatusUpdate extends TwitterMessage
 
         if ($mediaIds->count() > 0) {
             $body['media'] = [
-                'media_ids' => $mediaIds->toArray()
+                'media_ids' => $mediaIds->toArray(),
             ];
         }
 
