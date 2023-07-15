@@ -42,7 +42,7 @@ class TwitterChannelTest extends TestCase
         $this->twitter->shouldReceive('getLastHttpCode')
             ->once()
             ->andReturn(201);
-        
+
         $this->channel->send(new TestNotifiable(), new TestNotification());
     }
 
@@ -60,7 +60,7 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with(
                 'tweets',
-                ['text' => 'Laravel Notification Channels are awesome!', 'media' => [ 'media_ids' => [2]]],
+                ['text' => 'Laravel Notification Channels are awesome!', 'media' => ['media_ids' => [2]]],
                 true
             )
             ->andReturn([]);
@@ -96,7 +96,7 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with(
                 'tweets',
-                ['text' => 'Laravel Notification Channels are awesome!', 'media' => [ 'media_ids' => [2]]],
+                ['text' => 'Laravel Notification Channels are awesome!', 'media' => ['media_ids' => [2]]],
                 true
             )
             ->andReturn([]);
@@ -195,7 +195,7 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->with($media->media_id_string)
             ->andReturn($status);
- 
+
         $this->expectException(CouldNotSendNotification::class);
 
         $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
@@ -265,18 +265,11 @@ class TestNotificationWithReplyToStatusId extends Notification
 {
     private int $replyToStatusId;
 
-    /**
-     * @param  int  $replyToStatusId
-     */
     public function __construct(int $replyToStatusId)
     {
         $this->replyToStatusId = $replyToStatusId;
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return TwitterMessage
-     */
     public function toTwitter(mixed $notifiable): TwitterMessage
     {
         return (new TwitterStatusUpdate('Laravel Notification Channels are awesome!'))
