@@ -4,7 +4,7 @@ namespace NotificationChannels\Twitter;
 
 abstract class TwitterMessage
 {
-    public bool $isJsonRequest = false;
+    public bool $isJsonRequest = true;
 
     public function __construct(protected string $content)
     {

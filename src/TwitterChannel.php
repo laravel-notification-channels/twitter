@@ -32,13 +32,16 @@ class TwitterChannel
         } else {
             $requestBody = $twitterMessage->getRequestBody();
         }
+
+        // api V2 does not support sending media yet, so I wait till after sending media to switch api version
+        $this->twitter->setApiVersion('2');
         $twitterApiResponse = $this->twitter->post(
             $twitterMessage->getApiEndpoint(),
             $requestBody,
             $twitterMessage->isJsonRequest,
         );
-
-        if ($this->twitter->getLastHttpCode() !== 200) {
+      
+        if ($this->twitter->getLastHttpCode() !== 201) {
             throw CouldNotSendNotification::serviceRespondsNotSuccessful($this->twitter->getLastBody());
         }
 
