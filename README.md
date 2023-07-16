@@ -55,9 +55,9 @@ The service provider gets loaded automatically.
 
 You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within this app, you will find the `keys and access tokens`.
 
-Your Twitter app `must be within a project`. Also make sure to activate the `user authentication settings`:
+Your Twitter app `must be within a project`. Also, make sure to activate the `user authentication settings`:
 
-<img width="1289" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/0e1eb078-afdb-484e-8c9e-9970a35b4c99">
+<img width="1289" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/9be260ba-d8db-4af1-be58-9e4ce3b0176d">
 
 If done correctly, you should see the right permissions for your access tokens:
 
