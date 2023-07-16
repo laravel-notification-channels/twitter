@@ -59,7 +59,7 @@ Your Twitter app `must be within a project`. Also, make sure to activate the `us
 
 <img width="1289" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/9be260ba-d8db-4af1-be58-9e4ce3b0176d">
 
-If done correctly, you should see the right permissions for your access tokens:
+After that, you have to regenerate your access token and secret. If done correctly, you should see the right permissions for your access tokens:
 
 <img width="796" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/6ee5fc99-0373-4ebb-b8c5-4c84a82632df">
 
