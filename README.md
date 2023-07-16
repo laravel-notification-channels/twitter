@@ -37,7 +37,7 @@ PS: v8 now uses the new Twitter API V2. Please read the upgrade guide for your a
 
 This package is part of the [Laravel Notification Channels](http://laravel-notification-channels.com/) project. It provides additional Laravel Notification channels to the ones given by [Laravel](https://laravel.com/docs/master/notifications) itself.
 
-The Twitter channel makes it possible to send out Laravel notifications as a `Twitter status update `(post on the timeline) or as a `direct message`.
+The Twitter channel makes it possible to send out Laravel notifications as a `Twitter tweet` (post on the timeline) or as a `direct message`.
 
 ## Installation
 
@@ -51,9 +51,32 @@ composer require laravel-notification-channels/twitter
 
 The service provider gets loaded automatically.
 
-### Setting up the Twitter service
+### Twitter App & Credentials
 
-You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within this app, you will find the `keys and access tokens`. Place them inside your `.env` file. To load them, add this to your `config/services.php` file:
+You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within this app, you will find the `keys and access tokens`.
+
+Your Twitter app `must be within a project`. Also make sure to activate the `user authentication settings`:
+
+<img width="1289" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/0e1eb078-afdb-484e-8c9e-9970a35b4c99">
+
+If done correctly, you should see the right permissions for your access tokens:
+
+<img width="796" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/6ee5fc99-0373-4ebb-b8c5-4c84a82632df">
+
+
+Make sure to copy the right credentials and place them inside your `.env` file.
+
+```env
+TWITTER_CONSUMER_KEY=your-consumer-key
+TWITTER_CONSUMER_SECRET=your-consumer-secret
+TWITTER_ACCESS_TOKEN=your-accesss_token
+TWITTER_ACCESS_TOKEN_SECRET=your-access-token-secret
+```
+
+<img width="1168" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/7e68325d-0255-4f66-a310-86f3277f52a7">
+
+
+To load them, add this to your `config/services.php` file:
 
 ```php
 ...
@@ -65,8 +88,6 @@ You will need to [create](https://developer.twitter.com/apps/) a Twitter app to 
 ]
 ...
 ```
-
-This will load the Twitter app data from the `.env` file. Make sure to use the same keys you have used like `TWITTER_CONSUMER_KEY`.
 
 ## Usage
 
