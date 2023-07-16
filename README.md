@@ -12,7 +12,7 @@
 
 This package makes it easy to send Laravel notifications using [Twitter](https://dev.twitter.com/rest/public). (Laravel 8+)
 
-PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel application or PHP version, you can use an older version of this package. Be aware that these are no longer maintained.
+PS: v8 now uses the new Twitter API V2. Please read the upgrade guide for your app [here](https://developer.twitter.com/en/docs/twitter-api/migrate/overview).
 
 ## Contents
 
@@ -160,7 +160,7 @@ public function toTwitter(mixed $notifiable): TwitterMessage
 }
 ````
 > Note that the reply status ID will be ignored if you omit the author of the original tweet, according to Twitter docs.
-### Send a direct message
+### Send a direct message (NOT working with the FREE Twitter API plan!)
 To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter user handler as the first parameter and the message as the second one.
 ````php
 public function toTwitter(mixed $notifiable): TwitterMessage
