@@ -15,7 +15,7 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param mixed $notifiable Should be an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param  mixed  $notifiable Should be an object that uses the Illuminate\Notifications\Notifiable trait.
      *
      * @throws CouldNotSendNotification
      */
@@ -40,7 +40,7 @@ class TwitterChannel
             $requestBody,
             $twitterMessage->isJsonRequest,
         );
-      
+
         if ($this->twitter->getLastHttpCode() !== 201) {
             throw CouldNotSendNotification::serviceRespondsNotSuccessful($this->twitter->getLastBody());
         }
@@ -51,7 +51,7 @@ class TwitterChannel
     /**
      * Use per user settings instead of default ones.
      *
-     * @param object $notifiable Provide an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param  object  $notifiable Provide an object that uses the Illuminate\Notifications\Notifiable trait.
      */
     private function changeTwitterSettingsIfNeeded(object $notifiable)
     {

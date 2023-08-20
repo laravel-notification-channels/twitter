@@ -21,7 +21,7 @@ class TwitterServiceProvider extends ServiceProvider
                     config('services.twitter.access_token'),
                     config('services.twitter.access_secret')
                 );
-            
+
                 return $connection;
             });
     }

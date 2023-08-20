@@ -12,7 +12,7 @@
 
 This package makes it easy to send Laravel notifications using [Twitter](https://dev.twitter.com/rest/public). (Laravel 8+)
 
-PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel application or PHP version, you can use an older version of this package. Be aware that these are no longer maintained.
+PS: v8 now uses the new Twitter API V2. Please read the upgrade guide for your app [here](https://developer.twitter.com/en/docs/twitter-api/migrate/overview).
 
 ## Contents
 
@@ -37,7 +37,7 @@ PS: v.7.0.0 only supports Laravel 10 and PHP 8.1. If you have an older Laravel a
 
 This package is part of the [Laravel Notification Channels](http://laravel-notification-channels.com/) project. It provides additional Laravel Notification channels to the ones given by [Laravel](https://laravel.com/docs/master/notifications) itself.
 
-The Twitter channel makes it possible to send out Laravel notifications as a `Twitter status update `(post on the timeline) or as a `direct message`.
+The Twitter channel makes it possible to send out Laravel notifications as a `Twitter tweet` (post on the timeline) or as a `direct message`.
 
 ## Installation
 
@@ -51,9 +51,32 @@ composer require laravel-notification-channels/twitter
 
 The service provider gets loaded automatically.
 
-### Setting up the Twitter service
+### Twitter App & Credentials
 
-You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within this app, you will find the `keys and access tokens`. Place them inside your `.env` file. To load them, add this to your `config/services.php` file:
+You will need to [create](https://developer.twitter.com/apps/) a Twitter app to use this channel. Within this app, you will find the `keys and access tokens`.
+
+Your Twitter app `must be within a project`. Also, make sure to activate the `user authentication settings`:
+
+<img width="1289" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/9be260ba-d8db-4af1-be58-9e4ce3b0176d">
+
+After that, you have to regenerate your access token and secret. If done correctly, you should see the right permissions for your access tokens:
+
+<img width="796" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/6ee5fc99-0373-4ebb-b8c5-4c84a82632df">
+
+
+Make sure to copy the right credentials and place them inside your `.env` file.
+
+```env
+TWITTER_CONSUMER_KEY=your-consumer-key
+TWITTER_CONSUMER_SECRET=your-consumer-secret
+TWITTER_ACCESS_TOKEN=your-accesss_token
+TWITTER_ACCESS_TOKEN_SECRET=your-access-token-secret
+```
+
+<img width="1168" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/7e68325d-0255-4f66-a310-86f3277f52a7">
+
+
+To load them, add this to your `config/services.php` file:
 
 ```php
 ...
@@ -65,8 +88,6 @@ You will need to [create](https://developer.twitter.com/apps/) a Twitter app to 
 ]
 ...
 ```
-
-This will load the Twitter app data from the `.env` file. Make sure to use the same keys you have used like `TWITTER_CONSUMER_KEY`.
 
 ## Usage
 
@@ -160,7 +181,7 @@ public function toTwitter(mixed $notifiable): TwitterMessage
 }
 ````
 > Note that the reply status ID will be ignored if you omit the author of the original tweet, according to Twitter docs.
-### Send a direct message
+### Send a direct message (NOT working with the FREE Twitter API plan!)
 To send a Twitter direct message to a specific user, you will need the `TwitterDirectMessage` class. Provide the Twitter user handler as the first parameter and the message as the second one.
 ````php
 public function toTwitter(mixed $notifiable): TwitterMessage
