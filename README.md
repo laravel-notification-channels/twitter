@@ -70,7 +70,7 @@ Make sure to copy the right credentials and place them inside your `.env` file.
 TWITTER_CONSUMER_KEY=your-consumer-key
 TWITTER_CONSUMER_SECRET=your-consumer-secret
 TWITTER_ACCESS_TOKEN=your-accesss_token
-TWITTER_ACCESS_TOKEN_SECRET=your-access-token-secret
+TWITTER_ACCESS_SECRET=your-access-token-secret
 ```
 
 <img width="1168" alt="image" src="https://github.com/laravel-notification-channels/twitter/assets/1394539/7e68325d-0255-4f66-a310-86f3277f52a7">
