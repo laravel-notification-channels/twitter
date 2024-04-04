@@ -21,6 +21,7 @@ class TwitterChannel
      */
     public function send($notifiable, Notification $notification): array|object
     {
+        $this->twitter->setApiVersion('1.1');
         $this->changeTwitterSettingsIfNeeded($notifiable);
 
         $twitterMessage = $notification->toTwitter($notifiable);
