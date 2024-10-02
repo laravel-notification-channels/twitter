@@ -15,7 +15,7 @@ class TwitterChannel
     /**
      * Send the given notification.
      *
-     * @param  mixed  $notifiable Should be an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param mixed $notifiable Should be an object that uses the Illuminate\Notifications\Notifiable trait.
      *
      * @throws CouldNotSendNotification
      */
@@ -52,7 +52,7 @@ class TwitterChannel
     /**
      * Use per user settings instead of default ones.
      *
-     * @param  object  $notifiable Provide an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param object $notifiable Provide an object that uses the Illuminate\Notifications\Notifiable trait.
      */
     private function changeTwitterSettingsIfNeeded(object $notifiable)
     {
@@ -97,9 +97,9 @@ class TwitterChannel
 
             $twitterMessage->videoIds = collect($twitterMessage->getVideos())->map(function (TwitterVideo $video) {
                 $media = $this->twitter->upload('media/upload', [
-                    'media' => $video->getPath(),
+                    'media'          => $video->getPath(),
                     'media_category' => 'tweet_video',
-                    'media_type' => $video->getMimeType(),
+                    'media_type'     => $video->getMimeType(),
                 ], true);
 
                 $status = $this->twitter->mediaStatus($media->media_id_string);
