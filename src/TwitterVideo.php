@@ -6,6 +6,7 @@ class TwitterVideo
 {
     public function __construct(private string $videoPath)
     {
+        //
     }
 
     public function getPath(): string

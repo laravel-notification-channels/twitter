@@ -11,24 +11,21 @@ class TwitterStatusUpdateTest extends TestCase
 {
     protected TwitterStatusUpdate $message;
 
-    /** @test */
-    public function it_accepts_a_message_when_constructing_a_message(): void
+    public function test_it_accepts_a_message_when_constructing_a_message(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
 
         $this->assertEquals('myMessage', $message->getContent());
     }
 
-    /** @test */
-    public function image_paths_parameter_is_optional(): void
+    public function test_image_paths_parameter_is_optional(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
 
         $this->assertEquals(null, $message->getImages());
     }
 
-    /** @test */
-    public function it_accepts_one_image_path(): void
+    public function test_it_accepts_one_image_path(): void
     {
         $message = (new TwitterStatusUpdate('myMessage'))->withImage('image1.png');
 
@@ -36,8 +33,7 @@ class TwitterStatusUpdateTest extends TestCase
         $this->assertEquals([new TwitterImage('image1.png')], $message->getImages());
     }
 
-    /** @test */
-    public function it_accepts_array_of_image_paths(): void
+    public function test_it_accepts_array_of_image_paths(): void
     {
         $imagePaths = ['path1', 'path2'];
         $message = (new TwitterStatusUpdate('myMessage'))->withImage($imagePaths);
@@ -49,16 +45,14 @@ class TwitterStatusUpdateTest extends TestCase
         $this->assertEquals($imagePathsObjects, $message->getImages());
     }
 
-    /** @test */
-    public function video_paths_parameter_is_optional(): void
+    public function test_video_paths_parameter_is_optional(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
 
         $this->assertEquals(null, $message->getVideos());
     }
 
-    /** @test */
-    public function it_accepts_one_video_path(): void
+    public function test_it_accepts_one_video_path(): void
     {
         $message = (new TwitterStatusUpdate('myMessage'))->withVideo('video.mp4');
 
@@ -66,8 +60,7 @@ class TwitterStatusUpdateTest extends TestCase
         $this->assertEquals([new TwitterVideo('video.mp4')], $message->getVideos());
     }
 
-    /** @test */
-    public function it_accepts_array_of_video_paths(): void
+    public function test_it_accepts_array_of_video_paths(): void
     {
         $videoPaths = ['path1', 'path2'];
         $message = (new TwitterStatusUpdate('myMessage'))->withVideo($videoPaths);
@@ -79,8 +72,7 @@ class TwitterStatusUpdateTest extends TestCase
         $this->assertEquals($videoPathsObjects, $message->getVideos());
     }
 
-    /** @test */
-    public function it_constructs_a_request_body(): void
+    public function test_it_constructs_a_request_body(): void
     {
         $message = new TwitterStatusUpdate('myMessage');
         $message->imageIds = collect([434, 435, 436]);
@@ -94,8 +86,7 @@ class TwitterStatusUpdateTest extends TestCase
         ], $message->getRequestBody());
     }
 
-    /** @test */
-    public function it_throws_an_exception_when_the_status_update_is_too_long(): void
+    public function test_it_throws_an_exception_when_the_status_update_is_too_long(): void
     {
         $tooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior defined count.';
 
@@ -106,8 +97,7 @@ class TwitterStatusUpdateTest extends TestCase
         }
     }
 
-    /** @test */
-    public function it_provides_exceeded_message_count_when_the_status_update_is_too_long(): void
+    public function test_it_provides_exceeded_message_count_when_the_status_update_is_too_long(): void
     {
         $tooLongMessage = 'This is a super intensive long new Twitter status message which includes some super useful and concrete information about an upcoming package test that will check if a certain Twitter message may be too long in the case that the character count is higher than specific prior define count.';
 
@@ -128,16 +118,14 @@ class TwitterStatusUpdateTest extends TestCase
         }
     }
 
-    /** @test */
-    public function it_has_in_reply_to_status_id_as_optional_parameter(): void
+    public function test_it_has_in_reply_to_status_id_as_optional_parameter(): void
     {
         $message = new TwitterStatusUpdate('Hello world!');
 
         $this->assertEquals(null, $message->getInReplyToTweetId());
     }
 
-    /** @test */
-    public function it_accepts_in_reply_to_status_id(): void
+    public function test_it_accepts_in_reply_to_status_id(): void
     {
         $message = (new TwitterStatusUpdate($content = 'Foo!'))
             ->inReplyTo($inReplyToStatusId = 12345);

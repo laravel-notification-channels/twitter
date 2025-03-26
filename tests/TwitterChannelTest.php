@@ -21,18 +21,17 @@ class TwitterChannelTest extends TestCase
 
     protected TwitterChannel $channel;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->twitter = m::mock(TwitterOAuth::class, function ($mock) {
-            $mock->shouldReceive('setApiVersion')
-                ->with('2');
+            $mock->shouldReceive('setApiVersion')->with('1.1');
+            $mock->shouldReceive('setApiVersion')->with('2');
         });
         $this->channel = new TwitterChannel($this->twitter);
     }
 
-    /** @test */
-    public function it_can_send_a_status_update_notification()
+    public function test_it_can_send_a_status_update_notification()
     {
         $this->twitter->shouldReceive('post')
             ->once()
@@ -43,11 +42,10 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->andReturn(201);
 
-        $this->channel->send(new TestNotifiable(), new TestNotification());
+        $this->channel->send(new TestNotifiable, new TestNotification);
     }
 
-    /** @test */
-    public function it_can_send_a_status_update_notification_with_images()
+    public function test_it_can_send_a_status_update_notification_with_images()
     {
         $media = new stdClass;
         $media->media_id_string = '2';
@@ -74,11 +72,10 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->andReturn(201);
 
-        $this->channel->send(new TestNotifiable(), new TestNotificationWithImage());
+        $this->channel->send(new TestNotifiable, new TestNotificationWithImage);
     }
 
-    /** @test */
-    public function it_can_send_a_status_update_notification_with_videos()
+    public function test_it_can_send_a_status_update_notification_with_videos()
     {
         $media = new stdClass;
         $media->media_id_string = '2';
@@ -97,7 +94,7 @@ class TwitterChannelTest extends TestCase
             ->with(
                 'tweets',
                 ['text' => 'Laravel Notification Channels are awesome!', 'media' => ['media_ids' => [2]]],
-                true
+                ['jsonPayload' => true]
             )
             ->andReturn([]);
 
@@ -119,11 +116,10 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->andReturn(201);
 
-        $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
+        $this->channel->send(new TestNotifiable, new TestNotificationWithVideo);
     }
 
-    /** @test */
-    public function it_can_send_a_status_update_notification_with_reply_to_tweet_id(): void
+    public function test_it_can_send_a_status_update_notification_with_reply_to_tweet_id(): void
     {
         $postParams = [
             'text' => 'Laravel Notification Channels are awesome!',
@@ -139,11 +135,10 @@ class TwitterChannelTest extends TestCase
             ->once()
             ->andReturn(201);
 
-        $this->channel->send(new TestNotifiable(), new TestNotificationWithReplyToStatusId($replyToStatusId));
+        $this->channel->send(new TestNotifiable, new TestNotificationWithReplyToStatusId($replyToStatusId));
     }
 
-    /** @test */
-    public function it_throws_an_exception_when_it_could_not_send_the_notification()
+    public function test_it_throws_an_exception_when_it_could_not_send_the_notification()
     {
         $twitterResponse = new stdClass;
         $twitterResponse->detail = 'Error Message';
@@ -162,11 +157,10 @@ class TwitterChannelTest extends TestCase
 
         $this->expectException(CouldNotSendNotification::class);
 
-        $this->channel->send(new TestNotifiable(), new TestNotification());
+        $this->channel->send(new TestNotifiable, new TestNotification);
     }
 
-    /** @test */
-    public function it_throws_an_exception_when_it_could_not_send_the_notification_with_videos()
+    public function test_it_throws_an_exception_when_it_could_not_send_the_notification_with_videos()
     {
         $media = new stdClass;
         $media->media_id_string = '2';
@@ -198,7 +192,7 @@ class TwitterChannelTest extends TestCase
 
         $this->expectException(CouldNotSendNotification::class);
 
-        $this->channel->send(new TestNotifiable(), new TestNotificationWithVideo());
+        $this->channel->send(new TestNotifiable, new TestNotificationWithVideo);
     }
 }
 

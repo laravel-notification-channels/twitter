@@ -25,7 +25,7 @@ class TwitterStatusUpdate extends TwitterMessage
     {
         parent::__construct($content);
 
-        if ($exceededLength = $this->messageIsTooLong(new Brevity())) {
+        if ($exceededLength = $this->messageIsTooLong(new Brevity)) {
             throw CouldNotSendNotification::statusUpdateTooLong($exceededLength);
         }
     }
