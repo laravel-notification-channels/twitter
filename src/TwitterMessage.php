@@ -8,6 +8,7 @@ abstract class TwitterMessage
 
     public function __construct(protected string $content)
     {
+        //
     }
 
     public function getContent(): string

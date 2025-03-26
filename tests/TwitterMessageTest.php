@@ -7,8 +7,7 @@ use NotificationChannels\Twitter\TwitterMessage;
 
 class TwitterMessageTest extends TestCase
 {
-    /** @test */
-    public function it_needs_a_content()
+    public function test_it_needs_a_content()
     {
         $this->expectException(ArgumentCountError::class);
 
@@ -21,8 +20,7 @@ class TwitterMessageTest extends TestCase
         };
     }
 
-    /** @test */
-    public function it_returns_the_provided_content()
+    public function test_it_returns_the_provided_content()
     {
         $message = new class('Foo content') extends TwitterMessage
         {
@@ -35,8 +33,7 @@ class TwitterMessageTest extends TestCase
         $this->assertEquals('Foo content', $message->getContent());
     }
 
-    /** @test */
-    public function it_has_an_is_json_request_property_with_default_value_true()
+    public function test_it_has_an_is_json_request_property_with_default_value_true()
     {
         $message = new class('Foo content') extends TwitterMessage
         {
@@ -46,7 +43,6 @@ class TwitterMessageTest extends TestCase
             }
         };
 
-        $this->assertObjectHasAttribute('isJsonRequest', $message);
         $this->assertTrue($message->isJsonRequest);
     }
 }

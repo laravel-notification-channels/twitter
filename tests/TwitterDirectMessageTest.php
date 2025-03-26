@@ -14,7 +14,7 @@ class TwitterDirectMessageTest extends TestCase
 
     protected TwitterOAuth $twitter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->twitter = m::mock(TwitterOAuth::class);
@@ -22,27 +22,23 @@ class TwitterDirectMessageTest extends TestCase
         $this->messageWithScreenName = new TwitterDirectMessage('receiver', 'myMessage');
     }
 
-    /** @test */
-    public function it_accepts_receiver_and_message_when_constructed(): void
+    public function test_it_accepts_receiver_and_message_when_constructed(): void
     {
         $this->assertEquals(1234, $this->messageWithUserId->getReceiver($this->twitter));
         $this->assertEquals('myMessage', $this->messageWithUserId->getContent());
     }
 
-    /** @test */
-    public function it_can_get_the_content(): void
+    public function test_it_can_get_the_content(): void
     {
         $this->assertEquals('myMessage', $this->messageWithUserId->getContent());
     }
 
-    /** @test */
-    public function it_can_get_the_receiver(): void
+    public function test_it_can_get_the_receiver(): void
     {
         $this->assertEquals(1234, $this->messageWithUserId->getReceiver($this->twitter));
     }
 
-    /** @test */
-    public function it_can_get_the_receiver_for_screen_name(): void
+    public function test_it_can_get_the_receiver_for_screen_name(): void
     {
         $this->twitter->shouldReceive('get')
             ->once()
@@ -59,14 +55,12 @@ class TwitterDirectMessageTest extends TestCase
         $this->assertEquals(1234, $this->messageWithScreenName->getReceiver($this->twitter));
     }
 
-    /** @test */
-    public function it_can_get_the_api_endpoint(): void
+    public function test_it_can_get_the_api_endpoint(): void
     {
         $this->assertEquals('direct_messages/events/new', $this->messageWithUserId->getApiEndpoint());
     }
 
-    /** @test */
-    public function it_can_get_the_request_body(): void
+    public function test_it_can_get_the_request_body(): void
     {
         $expected = [
             'event' => [
