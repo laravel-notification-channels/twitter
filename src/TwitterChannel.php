@@ -39,7 +39,7 @@ class TwitterChannel
         $twitterApiResponse = $this->twitter->post(
             $twitterMessage->getApiEndpoint(),
             $requestBody,
-            $twitterMessage->isJsonRequest,
+            ['jsonPayload' => $twitterMessage->isJsonRequest],
         );
 
         if ($this->twitter->getLastHttpCode() !== 201) {
