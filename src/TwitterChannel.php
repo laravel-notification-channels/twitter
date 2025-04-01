@@ -10,12 +10,13 @@ class TwitterChannel
 {
     public function __construct(protected TwitterOAuth $twitter)
     {
+        //
     }
 
     /**
      * Send the given notification.
      *
-     * @param mixed $notifiable Should be an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param  mixed  $notifiable  Should be an object that uses the Illuminate\Notifications\Notifiable trait.
      *
      * @throws CouldNotSendNotification
      */
@@ -39,7 +40,7 @@ class TwitterChannel
         $twitterApiResponse = $this->twitter->post(
             $twitterMessage->getApiEndpoint(),
             $requestBody,
-            $twitterMessage->isJsonRequest,
+            ['jsonPayload' => $twitterMessage->isJsonRequest],
         );
 
         if ($this->twitter->getLastHttpCode() !== 201) {
@@ -52,7 +53,7 @@ class TwitterChannel
     /**
      * Use per user settings instead of default ones.
      *
-     * @param object $notifiable Provide an object that uses the Illuminate\Notifications\Notifiable trait.
+     * @param  object  $notifiable  Provide an object that uses the Illuminate\Notifications\Notifiable trait.
      */
     private function changeTwitterSettingsIfNeeded(object $notifiable)
     {
@@ -96,11 +97,15 @@ class TwitterChannel
             $this->twitter->setTimeouts(10, 15);
 
             $twitterMessage->videoIds = collect($twitterMessage->getVideos())->map(function (TwitterVideo $video) {
-                $media = $this->twitter->upload('media/upload', [
-                    'media'          => $video->getPath(),
-                    'media_category' => 'tweet_video',
-                    'media_type'     => $video->getMimeType(),
-                ], true);
+                $media = $this->twitter->upload(
+                    'media/upload',
+                    [
+                        'media' => $video->getPath(),
+                        'media_category' => 'tweet_video',
+                        'media_type' => $video->getMimeType(),
+                    ], [
+                        'chunkedUpload' => true,
+                    ]);
 
                 $status = $this->twitter->mediaStatus($media->media_id_string);
 
